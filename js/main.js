@@ -1,6 +1,6 @@
 let usuario = "Eze";
 let pass = "123456";
-let resultado = false;
+let resultado;
 
 function logIn() {
      for (let i=0; i<3; i++){
@@ -8,11 +8,11 @@ function logIn() {
         let ingresoPass = prompt("Ingrese contraseña"); 
         if (ingresoUser == usuario && ingresoPass == pass ) {
             return true;
-            break;
         } else {
-            alert("Usuario o contraseña incorrecta")
-        }    
+            alert("Usuario o contraseña incorrecta");
+        } 
     }
+    return false;
 }
 
 resultado = logIn();
