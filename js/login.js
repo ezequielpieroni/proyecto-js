@@ -8,7 +8,7 @@ function ingreso() {
     let pass = "123";
     if (document.getElementById("password").value === pass && document.getElementById("username").value === user) {
         alert ("Bienvenido/a");
-        window.location = "../pages/agendadiaria.html";
+        window.location = "../pages/agendaDiaria.html";
     } else {
         alert("Usuario o contraseña incorrecta");
     } 
