@@ -1,0 +1,120 @@
+
+/**-----------------------------------------**/
+/**------------- Estilos del main ----------**/
+/**-----------------------------------------**/
+
+#agendaDiaria {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    height: auto;
+    border-top: 1px solid gray;
+    padding-top: 50px;
+
+    .asideFecha {
+        display: grid;
+        grid-template-rows: 150px auto;
+        .fechaAgenda {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+
+        }
+        .filtrosAgenda {
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(142, 168, 185);
+            border: 1px solid black;
+            height: 174px;
+            margin: 0;
+        }
+    }
+
+    .cuadroAgenda{
+        display: grid;
+        grid-template-rows: 30px auto;
+        .categoriasAgenda {
+            display: grid;
+            grid-template-columns:repeat(4, 1fr);
+            background-color: rgb(255, 255, 255);
+
+        }
+        .pacientesAgenda{
+            display: flex;
+            flex-direction: column;
+            .paciente1,
+            .paciente2,
+            .paciente3,
+            .paciente4,
+            .paciente5,
+            .paciente6,
+            .paciente7{
+
+                display: grid;
+                grid-template-columns:repeat(4, 1fr);
+                background-color: rgb(212, 220, 225);
+                border: 1px solid black;
+            }
+        }
+    }
+}
+
+
+
+/**-----------------------------------------**/
+/**------ Estilos de la ventana modal ------**/
+/**-----------------------------------------**/
+
+
+#contenidoTurno {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    height: auto;
+    /**border-top: 1px solid gray;**/
+    padding-top: 50px;
+    .cuadroEntrada {
+
+        a{
+            text-decoration: none;
+            color: black;
+        }
+
+        .dias {
+            display: grid;
+            grid-template-columns:repeat(7, 1fr);
+            background-color: rgb(104, 174, 236);
+        }
+        .horas {
+            display: grid;
+            grid-template-columns:repeat(7, 1fr);
+            grid-template-rows: (7, 1fr);
+            grid-template-areas:
+            "hora0 hora7  hora14 hora21 hora28 hora35 hora42"
+            "hora1 hora8  hora15 hora22 hora29 hora36 hora43"
+            "hora2 hora9  hora16 hora23 hora30 hora37 hora44"
+            "hora3 hora10 hora17 hora24 hora31 hora38 hora45"
+            "hora4 hora11 hora18 hora25 hora32 hora39 hora46"
+            "hora5 hora12 hora19 hora26 hora33 hora40 hora47"
+            "hora6 hora13 hora20 hora27 hora34 hora41 hora48";
+
+            .busy {
+                height: 13px;
+                width: auto;
+            }
+            // #horarioOcupado {
+            //     background-color: rgb(227, 186, 163);
+            // }
+            // #horarioDisponible {
+            //     background-color: rgb(163, 227, 191);
+            // }
+
+
+  
+
+        }
+    }
+
+
+
+}
+
