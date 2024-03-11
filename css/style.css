@@ -58,24 +58,13 @@ main {
 }
 #agendaDiaria .cuadroAgenda .categoriasAgenda {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   background-color: rgb(255, 255, 255);
 }
-#agendaDiaria .cuadroAgenda .pacientesAgenda {
-  display: flex;
-  flex-direction: column;
-}
-#agendaDiaria .cuadroAgenda .pacientesAgenda .paciente1,
-#agendaDiaria .cuadroAgenda .pacientesAgenda .paciente2,
-#agendaDiaria .cuadroAgenda .pacientesAgenda .paciente3,
-#agendaDiaria .cuadroAgenda .pacientesAgenda .paciente4,
-#agendaDiaria .cuadroAgenda .pacientesAgenda .paciente5,
-#agendaDiaria .cuadroAgenda .pacientesAgenda .paciente6,
-#agendaDiaria .cuadroAgenda .pacientesAgenda .paciente7 {
+#agendaDiaria .cuadroAgenda .turnosDia {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  background-color: rgb(212, 220, 225);
-  border: 1px solid black;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: rgb(255, 255, 255);
 }
 
 /**-----------------------------------------**/
@@ -108,6 +97,10 @@ main {
   width: auto;
 }
 
+.seleccionFecha {
+  background-color: rgb(110, 186, 58);
+}
+
 body {
   background-color: rgb(184, 183, 183);
 }
@@ -118,7 +111,7 @@ body {
   margin-top: 10%;
 }
 .cajaLogin .formLogin {
-  background-color: rgb(255, 72, 0);
+  background-color: rgb(171, 187, 220);
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -35,26 +35,27 @@
         grid-template-rows: 30px auto;
         .categoriasAgenda {
             display: grid;
-            grid-template-columns:repeat(4, 1fr);
+            grid-template-columns:repeat(3, 1fr);
             background-color: rgb(255, 255, 255);
 
         }
-        .pacientesAgenda{
-            display: flex; 
-            flex-direction: column;
-            .paciente1,
-            .paciente2,
-            .paciente3,
-            .paciente4,
-            .paciente5,
-            .paciente6,
-            .paciente7{
+        .turnosDia {
+            display: grid;
+            grid-template-columns:repeat(3, 1fr);
+            background-color: rgb(255, 255, 255);
+            // .paciente1,
+            // .paciente2,
+            // .paciente3,
+            // .paciente4,
+            // .paciente5,
+            // .paciente6,
+            // .paciente7{
 
-                display: grid;
-                grid-template-columns:repeat(4, 1fr);
-                background-color: rgb(212, 220, 225);
-                border: 1px solid black;
-            }
+            //     display: grid;
+            //     grid-template-columns:repeat(3, 1fr);
+            //     background-color: rgb(212, 220, 225);
+            //     border: 1px solid black;
+            // }
         }
     }
 }
@@ -101,20 +102,18 @@
                 height: 13px;
                 width: auto;
             }
-            // #horarioOcupado {
-            //     background-color: rgb(227, 186, 163);
-            // }
-            // #horarioDisponible {
-            //     background-color: rgb(163, 227, 191);
-            // }
 
 
-  
+
 
         }
     }
+}
 
-
+.seleccionFecha{
+    background-color: rgb(110, 186, 58);
 
 }
+
+
 

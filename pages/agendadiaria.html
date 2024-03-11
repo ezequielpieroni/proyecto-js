@@ -51,7 +51,7 @@
             </nav>
         </header>
         
-        <main class="subNav">
+        <main id = "main" class="subNav">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Agenda</a> <!---->
@@ -61,7 +61,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#"></a> <!--Diaria-->
+                                <a class="nav-link active" aria-current="page" href="#">Diaria</a> <!--Diaria-->
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"></a> <!--Semanal-->
@@ -117,12 +117,12 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <input class="form-check-input sobreturno" type="checkbox" value="" id="flexCheckDefault">
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                 Sobreturno
                                                 </label>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                <button class="btn btn-primary botonSiguiente" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Siguiente</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> <!--cambiar de modal a button-->
+                                                <button class="btn btn-primary botonSiguiente" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"</button>Siguiente</button>
                                             </div>
                                          </div>
                                     </div>
@@ -135,10 +135,17 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Seccion seleccionar paciente en construccion.
+                                                <p class="seleccionFecha"></p>
+                                                <p>Seleccione el paciente</p>
+                                                <input list="pacientes" class="listaPacientes">
+                                                <p>Tratamiento/Comentario:</p>
+                                                <textarea></textarea> 
+                                           
                                             </div>
                                             <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                                 <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Volver</button>
+                                                <button type="button" class="btn btn-primary guardarTurno">Guardar cambios</button>
                                             </div>
                                         </div>
                                     </div>
@@ -148,95 +155,34 @@
                     </div>
                 </div>
             </nav>
-
-            <!-- <section id="agendaDiaria">
-                <aside class="asideFecha">
-                    <div class="fechaAgenda">  Fecha-->
-                        <!-- <h3>Lunes </h3>
-                        <h3><19></h3>
-                        <h3>octubre 2024</h3>    
+            <section id="agendaDiaria">
+                <article class="asideFecha">
+                    <div class="fechaAgenda">
+                        <p>(Dia de hoy)</p>
+                        <p>Lunes</p>
+                        <p><18></p>
+                        <p>Marzo 2024</p>    
                     </div>
-
-                    <div>  Filtros-->
-                        <!-- <ul class="filtrosAgenda">
-                            <li><input type="checkbox"><label for="todos">Marcar todos</label></li>
-                            <li><input type="checkbox"><label for="todos">Filtro 1</label></li>                            <li><input type="checkbox"><label for="todos">Filtro 2</label></li>
-                            <li><input type="checkbox"><label for="todos">Filtro 3</label></li>
-                            <li><input type="checkbox"><label for="todos">Filtro 4</label></li>
-                            <li><input type="checkbox"><label for="todos">Filtro 5</label></li>
-                            
-                        </ul>
-                    </div>
-                </aside>     -->
-
-
-                    
-                <!-- <div class="cuadroAgenda">
+                </article>
+                <article class="cuadroAgenda">
                     <div class="categoriasAgenda">
-                        <p class="dato1">Hora</p>
-                        <p class="dato2">Paciente</p>
-                        <p class="dato3">Estado</p>
-                        <p class="dato4">Tratamiento/comentario</p>                    
+                        <h6>Hora</h6>
+                        <h6>Paciente</h6>
+                        <h6>Tratamiento/Comentario</h6>
+                    </div>
+                    <div class="turnosDia">
+
                     </div>
 
-                    <div class="pacientesAgenda">
-                        <div class="paciente1">
-                            <p class="dato1">9 a 9.30</p>
-                            <p class="dato2"></p>
-                            <p class="dato3"></p>
-                            <button class="dato4" type="button" class="btn btn-outline-secondary">Horario diponible</button>
-                            
-                        </div>
-                    
-                        <div class="paciente2">
-                            <p class="dato1">9.30 a 10.00</p>
-                            <p class="dato2"></p>
-                            <p class="dato3"></p>
-                            <button class="dato4" type="button" class="btn btn-outline-secondary">Horario diponible</button>
-                        </div>
-                    
-                        <div class="paciente3">
-                            <p class="dato1">10.00 a 10.30</p>
-                            <p class="dato2"></p>
-                            <p class="dato3"></p>
-                            <button class="dato4" type="button" class="btn btn-outline-secondary">Horario diponible</button>
-                        </div>
-                    
-                        <div class="paciente4">
-                            <p class="dato1">10.30 a 11.00</p>
-                            <p class="dato2"></p>
-                            <p class="dato3"></p>
-                            <button class="dato4" type="button" class="btn btn-primary btn-sm">Horario diponible</button>
-                        </div>
-                    
-                        <div class="paciente5">
-                            <p class="dato1">11.00 a 11.30</p>
-                            <p class="dato2"></p>
-                            <p class="dato3"></p>
-                            <button class="dato4" type="button" class="btn btn-outline-secondary">Horario diponible</button>
-                        </div>
-                    
-                        <div class="paciente6">
-                            <p class="dato1">11.30 a 12.00</p>
-                            <p class="dato2"></p>
-                            <p class="dato3"></p>
-                            <button class="dato4" type="button" class="btn btn-outline-secondary">Horario diponible</button>
-                        </div>
-                    
-                        <div class="paciente7">
-                            <p class="dato1">12.30 a 13.00</p>
-                            <p class="dato2"></p>
-                            <p class="dato3"></p>
-                            <button class="dato4" type="button" class="btn btn-outline-secondary">Horario diponible</button>
-                        </div>               
-                    </div> 
-                </div> 
+                </article>
 
-            </section> -->
-
-            
+            </section>
+            <div class="listaTurnos"></div>
         </main>
-        <script src="../js/turnosPrompt.js"></script>
+
+
+        <script src="../js/seleccionTurnoPaciente.js"></script>
+        <script src="../js/agendaDelDia.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     </body>
