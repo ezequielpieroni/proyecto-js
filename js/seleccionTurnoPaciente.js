@@ -76,15 +76,15 @@ function crearGrilla() {    //Agrega nodos 'a' con cada horario
   
     grillaHorarios.forEach(function(horario, i){  //recorre el array de objetos insertando nodos con distintas clases al html
             if (horario.estado == "disponible") {
-                grilla.innerHTML += "<a id=horarioDisponible class='items hora" + i + "'><input type=checkbox class=seleccion value= " + i + ">" + horario.hora + "</a>";
+                grilla.innerHTML += "<a class='horarioDisponible items hora" + i + "'><input type=checkbox class=seleccion value= " + i + ">" + horario.hora + "</a>";
                 document.querySelector(".hora"+i).style.gridArea = "hora" + i; //agrega el horario al grid css
           
             } else if (horario.estado == "ocupado")  {
-                grilla.innerHTML += "<a id=horarioOcupado class='items hora" + i + "'><input type=checkbox class=seleccion value= " + i + ">" + horario.hora + "<img src=../images/MaterialSymbolsSensorOccupiedOutlineRounded.png class=busy></a>";
+                grilla.innerHTML += "<a class='horarioOcupado items hora" + i + "'><input type=checkbox class=seleccion value= " + i + ">" + horario.hora + "<img src=../images/MaterialSymbolsSensorOccupiedOutlineRounded.png class=busy></a>";
                 document.querySelector(".hora"+i).style.gridArea = "hora" + i;
                 
             } else {
-                grilla.innerHTML += "<a id=horarioDeshabilitado class='items hora" + i + "'>" + " " + "</a>";
+                grilla.innerHTML += "<a class='horarioDeshabilitado items hora" + i + "'>" + " " + "</a>";
                 document.querySelector(".hora"+i).style.gridArea = "hora" + i;
             }  
     })
@@ -99,7 +99,8 @@ const botonSiguiente = document.querySelector(".botonSiguiente");
 const mensajeSeleccion = document.querySelector(".seleccionFecha")
 let dia
 let hora
-    
+let sobreturno = document.querySelector(".sobreturno");  
+
 botonSiguiente.addEventListener("click", function(e){
 
     dia = ""
@@ -107,7 +108,7 @@ botonSiguiente.addEventListener("click", function(e){
 
     let horaSeleccionada = document.querySelectorAll(".seleccion")
     let boxChecked = [];
-    let sobreturno = document.querySelector(".sobreturno"); 
+    
     
     horaSeleccionada.forEach(function(input){
         if (input.checked == true){
@@ -206,10 +207,16 @@ function turnoNuevo(paciente, dia, hora) {  //funcion constructora
     this.hora = hora;
 }
 
-//Funcion para verificar que elturno no esté ya asignado
+//Funciones para verificar que elturno no esté ya asignado
 function verificarTurnoRepetido(paciente, dia, hora) {
     return listaTurnos.some(function (turno) {
       return turno.id === paciente.id && turno.hora === hora && turno.dia === dia;
+    });
+}
+
+function verificarTurnoOcupado(dia, hora) {
+    return listaTurnos.some(function (turno) {
+      return turno.hora === hora && turno.dia === dia;
     });
 }
 
@@ -228,26 +235,32 @@ guardar.addEventListener("click", () => {
         //Busca el paciente elegido, en la lista de pacientes
         let paciente = pacientes.find(paciente => paciente.id === idPaciente)
         let turnoRepetido = verificarTurnoRepetido(paciente, dia, hora);
-
+        let turnoOcupado = verificarTurnoOcupado(dia, hora);
+        //Crea el objeto con los datos del turno
+        const  turnoAsignado= new turnoNuevo(paciente, dia, hora)
+        
         //Si el turno no ha sido ya asignado previamente se procede a hacerlo
         if (turnoRepetido) {
             alert(`Turno repetido. El turno para ${paciente.nombre} ${paciente.apellido} para el dia ${dia} a las ${hora} ya fue asignado anteriormente`)
-
+        } else if (turnoOcupado && sobreturno.checked ) {
+            guardarTurnoLS(listaTurnos, turnoAsignado)  
+            alert("Sobreturno asignado correctamente")
+        } else if (turnoOcupado ){
+            alert("Turno ocupado")   
         } else {
-            //Crea el objeto con los datos del turno
-            const  turnoAsignado= new turnoNuevo(paciente, dia, hora)
-            //Agrega el objeto a listaTurnos y al local storage
-            listaTurnos.push(turnoAsignado)
-            localStorage.setItem("lista-turnos", JSON.stringify(listaTurnos))   
+            guardarTurnoLS(listaTurnos, turnoAsignado)   
             alert("Turno asignado correctamente")
-            location.href = "../pages/agendadiaria.html";
         }
-            
-        
-
       
     } else {
         alert("Selecciona un paciente antes de guardar el turno");
+    }
+
+    //Agrega el objeto a listaTurnos y al local storage
+    function guardarTurnoLS(lista, turno) {
+        listaTurnos.push(turno)
+        localStorage.setItem("lista-turnos", JSON.stringify(lista))   
+        location.href = "../pages/agendadiaria.html";
     }
 })
 

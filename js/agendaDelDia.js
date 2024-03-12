@@ -7,7 +7,6 @@ const turnosDiaGrilla = document.querySelector(".turnosDia")
 
 if (turnosAlmacenados){
     const turnosHoy = turnosAlmacenados.filter(turno => turno.dia === "Lunes")
-    console.log(turnosHoy);
     if (turnosHoy.length > 0){
         turnosHoy.forEach(function(turno){
             turnosDiaGrilla.innerHTML += `<h4 class = 'horaGrilla'>${turno.hora}</h4>`
