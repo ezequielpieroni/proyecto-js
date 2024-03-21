@@ -9,62 +9,63 @@ botonDarTurno.addEventListener("click", crearGrilla, { once: true }); //Asigna e
 
 const grillaHorarios = [    //Array de objetos
 
-{dia: "Lunes",    hora: "9:00",    estado: "ocupado"},
-{dia: "Lunes",    hora: "9:30",    estado: "disponible"},
-{dia: "Lunes",    hora: "10:00",    estado: "disponible"},
-{dia: "Lunes",    hora: "10:30",    estado: "deshabilitado"},
-{dia: "Lunes",    hora: "11:00",    estado: "disponible"},
-{dia: "Lunes",    hora: "11:30",    estado: "disponible"},
-{dia: "Lunes",    hora: "12:00",    estado: "disponible"}, 
+{dia: "lunes",    hora: "9:00",    estado: "ocupado"},
+{dia: "lunes",    hora: "9:30",    estado: "disponible"},
+{dia: "lunes",    hora: "10:00",    estado: "disponible"},
+{dia: "lunes",    hora: "10:30",    estado: "deshabilitado"},
+{dia: "lunes",    hora: "11:00",    estado: "disponible"},
+{dia: "lunes",    hora: "11:30",    estado: "ocupado"},
+{dia: "lunes",    hora: "12:00",    estado: "disponible"}, 
        
-{dia: "Martes",    hora: "9:00",    estado: "disponible"},
-{dia: "Martes",    hora: "9:30",    estado: "disponible"},
-{dia: "Martes",    hora: "10:00",    estado: "disponible"},
-{dia: "Martes",    hora: "10:30",    estado: "disponible"},
-{dia: "Martes",    hora: "11:00",    estado: "disponible"},
-{dia: "Martes",    hora: "11:30",    estado: "disponible"},        
-{dia: "Martes",    hora: "12:00",    estado: "disponible"},
+{dia: "martes",    hora: "9:00",    estado: "disponible"},
+{dia: "martes",    hora: "9:30",    estado: "disponible"},
+{dia: "martes",    hora: "10:00",    estado: "disponible"},
+{dia: "martes",    hora: "10:30",    estado: "disponible"},
+{dia: "martes",    hora: "11:00",    estado: "disponible"},
+{dia: "martes",    hora: "11:30",    estado: "disponible"},        
+{dia: "martes",    hora: "12:00",    estado: "disponible"},
 
-{dia: "Miercoles",    hora: "9:00",    estado: "deshabilitado"},
-{dia: "Miercoles",    hora: "9:30",    estado: "deshabilitado"},
-{dia: "Miercoles",    hora: "10:00",    estado: "deshabilitado"},
-{dia: "Miercoles",    hora: "10:30",    estado: "deshabilitado"},
-{dia: "Miercoles",    hora: "11:00",    estado: "deshabilitado"},
-{dia: "Miercoles",    hora: "11:30",    estado: "deshabilitado"},
-{dia: "Miercoles",    hora: "12:00",    estado: "deshabilitado"},
+{dia: "miércoles",    hora: "9:00",    estado: "deshabilitado"},
+{dia: "miércoles",    hora: "9:30",    estado: "deshabilitado"},
+{dia: "miércoles",    hora: "10:00",    estado: "deshabilitado"},
+{dia: "miércoles",    hora: "10:30",    estado: "deshabilitado"},
+{dia: "miércoles",    hora: "11:00",    estado: "deshabilitado"},
+{dia: "miércoles",    hora: "11:30",    estado: "deshabilitado"},
+{dia: "miércoles",    hora: "12:00",    estado: "deshabilitado"},
 
-{dia: "Jueves",    hora: "9:00",    estado: "disponible"},
-{dia: "Jueves",    hora: "9:30",    estado: "disponible"},
-{dia: "Jueves",    hora: "10:00",    estado: "disponible"},
-{dia: "Jueves",    hora: "10:30",    estado: "disponible"},
-{dia: "Jueves",    hora: "11:00",    estado: "disponible"},
-{dia: "Jueves",    hora: "11:30",    estado: "disponible"},
-{dia: "Jueves",    hora: "12:00",    estado: "disponible"},
+{dia: "jueves",    hora: "9:00",    estado: "disponible"},
+{dia: "jueves",    hora: "9:30",    estado: "disponible"},
+{dia: "jueves",    hora: "10:00",    estado: "disponible"},
+{dia: "jueves",    hora: "10:30",    estado: "disponible"},
+{dia: "jueves",    hora: "11:00",    estado: "disponible"},
+{dia: "jueves",    hora: "11:30",    estado: "disponible"},
+{dia: "jueves",    hora: "12:00",    estado: "disponible"},
 
-{dia: "Viernes",    hora: "9:00",    estado: "disponible"},
-{dia: "Viernes",    hora: "9:30",    estado: "disponible"},
-{dia: "Viernes",    hora: "10:00",    estado: "disponible"},
-{dia: "Viernes",    hora: "10:30",    estado: "disponible"},
-{dia: "Viernes",    hora: "11:00",    estado: "disponible"},
-{dia: "Viernes",    hora: "11:30",    estado: "disponible"},
-{dia: "Viernes",    hora: "12:00",    estado: "disponible"},
+{dia: "viernes",    hora: "9:00",    estado: "disponible"},
+{dia: "viernes",    hora: "9:30",    estado: "disponible"},
+{dia: "viernes",    hora: "10:00",    estado: "disponible"},
+{dia: "viernes",    hora: "10:30",    estado: "disponible"},
+{dia: "viernes",    hora: "11:00",    estado: "disponible"},
+{dia: "viernes",    hora: "11:30",    estado: "disponible"},
+{dia: "viernes",    hora: "12:00",    estado: "disponible"},
 
-{dia: "Sabado",    hora: "9:00",    estado: "deshabilitado"},
-{dia: "Sabado",    hora: "9:30",    estado: "deshabilitado"},
-{dia: "Sabado",    hora: "10:00",    estado: "deshabilitado"},
-{dia: "Sabado",    hora: "10:30",    estado: "deshabilitado"},
-{dia: "Sabado",    hora: "11:00",    estado: "deshabilitado"},
-{dia: "Sabado",    hora: "11:30",    estado: "deshabilitado"},
-{dia: "Sabado",    hora: "12:00",    estado: "deshabilitado"},
+{dia: "sábado",    hora: "9:00",    estado: "deshabilitado"},
+{dia: "sábado",    hora: "9:30",    estado: "deshabilitado"},
+{dia: "sábado",    hora: "10:00",    estado: "deshabilitado"},
+{dia: "sábado",    hora: "10:30",    estado: "deshabilitado"},
+{dia: "sábado",    hora: "11:00",    estado: "deshabilitado"},
+{dia: "sábado",    hora: "11:30",    estado: "deshabilitado"},
+{dia: "sábado",    hora: "12:00",    estado: "deshabilitado"},
 
-{dia: "Domingo",    hora: "9:00",    estado: "deshabilitado"},
-{dia: "Domingo",    hora: "9:30",    estado: "deshabilitado"},
-{dia: "Domingo",    hora: "10:00",    estado: "deshabilitado"},
-{dia: "Domingo",    hora: "10:30",    estado: "deshabilitado"},
-{dia: "Domingo",    hora: "11:00",    estado: "deshabilitado"},
-{dia: "Domingo",    hora: "11:30",    estado: "deshabilitado"},
-{dia: "Domingo",    hora: "12:00",    estado: "deshabilitado"}
+{dia: "domingo",    hora: "9:00",    estado: "deshabilitado"},
+{dia: "domingo",    hora: "9:30",    estado: "deshabilitado"},
+{dia: "domingo",    hora: "10:00",    estado: "deshabilitado"},
+{dia: "domingo",    hora: "10:30",    estado: "deshabilitado"},
+{dia: "domingo",    hora: "11:00",    estado: "deshabilitado"},
+{dia: "domingo",    hora: "11:30",    estado: "deshabilitado"},
+{dia: "domingo",    hora: "12:00",    estado: "deshabilitado"}
 ]
+
 
 //----------------------------------------------------------//
 // La funcion "crearGrilla" busca los horarios disponibles, ocupados y  
@@ -260,7 +261,11 @@ guardar.addEventListener("click", () => {
     function guardarTurnoLS(lista, turno) {
         listaTurnos.push(turno)
         localStorage.setItem("lista-turnos", JSON.stringify(lista))   
-        location.href = "../pages/agendadiaria.html";
+        if (window.location.pathname === "/pages/agendadiaria.html") {
+            location.href = "../pages/agendadiaria.html";
+        } else if (window.location.pathname === "/pages/agendasemanal.html") {
+            location.href = "../pages/agendasemanal.html";
+        }
     }
 })
 

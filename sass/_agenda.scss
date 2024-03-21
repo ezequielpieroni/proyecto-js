@@ -13,23 +13,17 @@
     .asideFecha {
         display: grid;
         grid-template-rows: 150px auto;
+        
         .fechaAgenda {
             display: flex;
             flex-direction: column;
             align-items: center;
             background-color: rgb(255, 255, 255);
-
-        }
-        .filtrosAgenda {
-            display: flex;
-            flex-direction: column;
-            background-color: rgb(142, 168, 185);
-            border: 1px solid black;
-            height: 174px;
-            margin: 0;
         }
     }
 
+   
+    
     .cuadroAgenda{
         display: grid;
         grid-template-rows: 30px auto;
@@ -43,24 +37,66 @@
             display: grid;
             grid-template-columns:repeat(3, 1fr);
             background-color: rgb(255, 255, 255);
-            // .paciente1,
-            // .paciente2,
-            // .paciente3,
-            // .paciente4,
-            // .paciente5,
-            // .paciente6,
-            // .paciente7{
-
-            //     display: grid;
-            //     grid-template-columns:repeat(3, 1fr);
-            //     background-color: rgb(212, 220, 225);
-            //     border: 1px solid black;
-            // }
         }
     }
 }
 
+#agendaSemanal {
+    display: grid;
+    grid-template-columns: 5% 95%;
+    border-top: 1px solid gray;
+    p {
+        margin: 0;
+    }
+    .columnaIzquierda {
+        display: grid;
+        grid-template-rows:18% 82%;
+        .horariosSemana {
+            display: grid;
+            grid-template-rows: repeat(7, 2.1rem);
+        }
+    }
+    .columnaDerecha{
+        display: grid;
+        grid-template-rows:18% 82%;
+        .diasSemana {
+            display: grid;
+            grid-template-rows:50% 50%;
+            grid-template-columns:repeat(7, 1fr);
 
+        }
+        .grillaTurnosSemana {
+            display: grid;
+            grid-template-columns:repeat(7, 1fr);
+            grid-template-rows: repeat(7, 2.1rem);
+            grid-gap: 1px;
+            grid-template-areas:
+            " h900lu  h900ma   h900mi  h900ju  h900vi  h900sa  h900do"
+            " h930lu  h930ma   h930mi  h930ju  h930vi  h930sa  h930do"
+            "h1000lu h1000ma  h1000mi h1000ju h1000vi h1000sa h1000do"
+            "h1030lu h1030ma  h1030mi h1030ju h1030vi h1030sa h1030do"
+            "h1100lu h1100ma  h1100mi h1100ju h1100vi h1100sa h1100do"
+            "h1130lu h1130ma  h1130mi h1130ju h1130vi h1130sa h1130do"
+            "h1200lu h1200ma  h1200mi h1200ju h1200vi h1200sa h1200do";
+             .celda {
+                background-color: lightblue;
+             }
+            // div {
+            //     position: relative;
+            //     border: 1px solid transparent;
+            // }
+            // div::before {
+            //     content: '';
+            //     position: absolute;
+            //     top: -1px;
+            //     left: -1px;
+            //     right: -1px;
+            //     bottom: -1px;
+            //     border: 1px solid #000;
+            // }
+        }
+    }
+}
 
 /**-----------------------------------------**/
 /**------ Estilos de la ventana modal ------**/

@@ -44,14 +44,6 @@ main {
   align-items: center;
   background-color: rgb(255, 255, 255);
 }
-#agendaDiaria .asideFecha .filtrosAgenda {
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(142, 168, 185);
-  border: 1px solid black;
-  height: 174px;
-  margin: 0;
-}
 #agendaDiaria .cuadroAgenda {
   display: grid;
   grid-template-rows: 30px auto;
@@ -65,6 +57,42 @@ main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   background-color: rgb(255, 255, 255);
+}
+
+#agendaSemanal {
+  display: grid;
+  grid-template-columns: 5% 95%;
+  border-top: 1px solid gray;
+}
+#agendaSemanal p {
+  margin: 0;
+}
+#agendaSemanal .columnaIzquierda {
+  display: grid;
+  grid-template-rows: 18% 82%;
+}
+#agendaSemanal .columnaIzquierda .horariosSemana {
+  display: grid;
+  grid-template-rows: repeat(7, 2.1rem);
+}
+#agendaSemanal .columnaDerecha {
+  display: grid;
+  grid-template-rows: 18% 82%;
+}
+#agendaSemanal .columnaDerecha .diasSemana {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-columns: repeat(7, 1fr);
+}
+#agendaSemanal .columnaDerecha .grillaTurnosSemana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 2.1rem);
+  grid-gap: 1px;
+  grid-template-areas: " h900lu  h900ma   h900mi  h900ju  h900vi  h900sa  h900do" " h930lu  h930ma   h930mi  h930ju  h930vi  h930sa  h930do" "h1000lu h1000ma  h1000mi h1000ju h1000vi h1000sa h1000do" "h1030lu h1030ma  h1030mi h1030ju h1030vi h1030sa h1030do" "h1100lu h1100ma  h1100mi h1100ju h1100vi h1100sa h1100do" "h1130lu h1130ma  h1130mi h1130ju h1130vi h1130sa h1130do" "h1200lu h1200ma  h1200mi h1200ju h1200vi h1200sa h1200do";
+}
+#agendaSemanal .columnaDerecha .grillaTurnosSemana .celda {
+  background-color: lightblue;
 }
 
 /**-----------------------------------------**/
@@ -128,6 +156,11 @@ body {
 
 .bordeNav {
   border-bottom: 1px solid gray;
+}
+
+/** Nav agenda **/
+.nav-link.active {
+  text-decoration: underline;
 }
 
 /**------Pages--------**/
