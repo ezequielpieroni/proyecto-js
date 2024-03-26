@@ -1,7 +1,7 @@
 
-/**-----------------------------------------**/
-/**------------- Estilos del main ----------**/
-/**-----------------------------------------**/
+/**----------------------------------------------------**/
+/**------------- Estilos de la agenda diaria ----------**/
+/**----------------------------------------------------**/
 
 #agendaDiaria {
     display: grid;
@@ -29,17 +29,21 @@
         grid-template-rows: 30px auto;
         .categoriasAgenda {
             display: grid;
-            grid-template-columns:repeat(3, 1fr);
+            grid-template-columns:repeat(4, 1fr);
             background-color: rgb(255, 255, 255);
 
         }
         .turnosDia {
             display: grid;
-            grid-template-columns:repeat(3, 1fr);
+            grid-template-columns:repeat(4, 1fr);
             background-color: rgb(255, 255, 255);
         }
     }
 }
+
+/**-----------------------------------------**/
+/**------ Estilos de la agenda semanal ------**/
+/**-----------------------------------------**/
 
 #agendaSemanal {
     display: grid;
@@ -51,9 +55,18 @@
     .columnaIzquierda {
         display: grid;
         grid-template-rows:18% 82%;
+        .cuadroVacio{
+            //background-color: rgb(203, 203, 203);
+        }
         .horariosSemana {
             display: grid;
-            grid-template-rows: repeat(7, 2.1rem);
+            grid-template-rows: repeat(7, 3rem);
+            grid-gap: 1px;
+            .horario {
+                background-color: rgb(203, 203, 203);
+               
+            }
+            
         }
     }
     .columnaDerecha{
@@ -61,39 +74,32 @@
         grid-template-rows:18% 82%;
         .diasSemana {
             display: grid;
-            grid-template-rows:50% 50%;
+
             grid-template-columns:repeat(7, 1fr);
+            grid-gap: 1px;
+            //grid-template-rows:repeat(1, 1fr);
+            .dias {
+                background-color: rgb(203, 203, 203);
+
+            }
 
         }
         .grillaTurnosSemana {
             display: grid;
             grid-template-columns:repeat(7, 1fr);
-            grid-template-rows: repeat(7, 2.1rem);
+            grid-template-rows: repeat(7, 3rem);
             grid-gap: 1px;
             grid-template-areas:
-            " h900lu  h900ma   h900mi  h900ju  h900vi  h900sa  h900do"
-            " h930lu  h930ma   h930mi  h930ju  h930vi  h930sa  h930do"
-            "h1000lu h1000ma  h1000mi h1000ju h1000vi h1000sa h1000do"
-            "h1030lu h1030ma  h1030mi h1030ju h1030vi h1030sa h1030do"
-            "h1100lu h1100ma  h1100mi h1100ju h1100vi h1100sa h1100do"
-            "h1130lu h1130ma  h1130mi h1130ju h1130vi h1130sa h1130do"
-            "h1200lu h1200ma  h1200mi h1200ju h1200vi h1200sa h1200do";
-             .celda {
+            " s900lu  s900ma   s900mi  s900ju  s900vi  s900sa  s900do"
+            " s930lu  s930ma   s930mi  s930ju  s930vi  s930sa  s930do"
+            "s1000lu s1000ma  s1000mi s1000ju s1000vi s1000sa s1000do"
+            "s1030lu s1030ma  s1030mi s1030ju s1030vi s1030sa s1030do"
+            "s1100lu s1100ma  s1100mi s1100ju s1100vi s1100sa s1100do"
+            "s1130lu s1130ma  s1130mi s1130ju s1130vi s1130sa s1130do"
+            "s1200lu s1200ma  s1200mi s1200ju s1200vi s1200sa s1200do";
+             .celdaSemanal {
                 background-color: lightblue;
              }
-            // div {
-            //     position: relative;
-            //     border: 1px solid transparent;
-            // }
-            // div::before {
-            //     content: '';
-            //     position: absolute;
-            //     top: -1px;
-            //     left: -1px;
-            //     right: -1px;
-            //     bottom: -1px;
-            //     border: 1px solid #000;
-            // }
         }
     }
 }
@@ -116,40 +122,71 @@
             color: black;
         }
 
-        .dias {
+        .diasGrilla {
             display: grid;
             grid-template-columns:repeat(7, 1fr);
             background-color: rgb(104, 174, 236);
         }
-        .horas {
+        .grillaModal {
             display: grid;
             grid-template-columns:repeat(7, 1fr);
             grid-template-rows: (7, 1fr);
             grid-template-areas:
-            "hora0 hora7  hora14 hora21 hora28 hora35 hora42"
-            "hora1 hora8  hora15 hora22 hora29 hora36 hora43"
-            "hora2 hora9  hora16 hora23 hora30 hora37 hora44"
-            "hora3 hora10 hora17 hora24 hora31 hora38 hora45"
-            "hora4 hora11 hora18 hora25 hora32 hora39 hora46"
-            "hora5 hora12 hora19 hora26 hora33 hora40 hora47"
-            "hora6 hora13 hora20 hora27 hora34 hora41 hora48";
+            " m900lu  m900ma   m900mi  m900ju  m900vi  m900sa  m900do"
+            " m930lu  m930ma   m930mi  m930ju  m930vi  m930sa  m930do"
+            "m1000lu m1000ma  m1000mi m1000ju m1000vi m1000sa m1000do"
+            "m1030lu m1030ma  m1030mi m1030ju m1030vi m1030sa m1030do"
+            "m1100lu m1100ma  m1100mi m1100ju m1100vi m1100sa m1100do"
+            "m1130lu m1130ma  m1130mi m1130ju m1130vi m1130sa m1130do"
+            "m1200lu m1200ma  m1200mi m1200ju m1200vi m1200sa m1200do";
 
-            .busy {
+      .busy {
                 height: 13px;
                 width: auto;
             }
-
-
-
-
         }
     }
 }
 
 .seleccionFecha{
-    background-color: rgb(110, 186, 58);
-
+    background-color: rgb(46, 208, 253);
 }
 
 
 
+
+
+
+//             " h600lu  h600ma   h600mi  h600ju  h600vi  h600sa  h600do"
+//             " h630lu  h630ma   h630mi  h630ju  h630vi  h630sa  h630do"
+//             " h700lu  h700ma   h700mi  h700ju  h700vi  h700sa  h700do"
+//             " h730lu  h730ma   h730mi  h730ju  h730vi  h730sa  h730do"
+//             " h800lu  h800ma   h800mi  h800ju  h800vi  h800sa  h800do"
+//             " h830lu  h830ma   h830mi  h830ju  h830vi  h830sa  h830do"
+//             " h900lu  h900ma   h900mi  h900ju  h900vi  h900sa  h900do"
+//             " h930lu  h930ma   h930mi  h930ju  h930vi  h930sa  h930do"
+//             "h1000lu h1000ma  h1000mi h1000ju h1000vi h1000sa h1000do"
+//             "h1030lu h1030ma  h1030mi h1030ju h1030vi h1030sa h1030do"
+//             "h1100lu h1100ma  h1100mi h1100ju h1100vi h1100sa h1100do"
+//             "h1130lu h1130ma  h1130mi h1130ju h1130vi h1130sa h1130do"
+//             "h1200lu h1200ma  h1200mi h1200ju h1200vi h1200sa h1200do"
+//             "h1230lu h1230ma  h1230mi h1230ju h1230vi h1230sa h1230do"
+//             "h1300lu h1300ma  h1300mi h1300ju h1300vi h1300sa h1300do"
+//             "h1330lu h1330ma  h1330mi h1330ju h1330vi h1330sa h1330do"
+//             "h1400lu h1400ma  h1400mi h1400ju h1400vi h1400sa h1400do"
+//             "h1430lu h1430ma  h1430mi h1430ju h1430vi h1430sa h1430do"
+//             "h1500lu h1500ma  h1500mi h1500ju h1500vi h1500sa h1500do"
+//             "h1530lu h1530ma  h1530mi h1530ju h1530vi h1530sa h1530do"
+//             "h1600lu h1600ma  h1600mi h1600ju h1600vi h1600sa h1600do"
+//             "h1630lu h1630ma  h1630mi h1630ju h1630vi h1630sa h1630do"
+//             "h1700lu h1700ma  h1700mi h1700ju h1700vi h1700sa h1700do"
+//             "h1730lu h1730ma  h1730mi h1730ju h1730vi h1730sa h1730do"
+//             "h1800lu h1800ma  h1800mi h1800ju h1800vi h1800sa h1800do"
+//             "h1830lu h1830ma  h1830mi h1830ju h1830vi h1830sa h1830do"
+//             "h1900lu h1900ma  h1900mi h1900ju h1900vi h1900sa h1900do"
+//             "h1930lu h1930ma  h1930mi h1930ju h1930vi h1930sa h1930do"
+//             "h2000lu h2000ma  h2000mi h2000ju h2000vi h2000sa h2000do"
+//             "h2030lu h2030ma  h2030mi h2030ju h2030vi h2030sa h2030do"
+//             "h2100lu h2100ma  h2100mi h2100ju h2100vi h2100sa h2100do"
+//             "h2130lu h2130ma  h2130mi h2130ju h2130vi h2130sa h2130do"
+//             "h2200lu h2200ma  h2200mi h2200ju h2200vi h2200sa h2200do";
