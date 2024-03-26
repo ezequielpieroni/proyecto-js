@@ -6,9 +6,9 @@ const turnosAlmacenados = JSON.parse(localStorage.getItem("lista-turnos"));
 // Busca los turnos disponibles y los inserta en la grilla semanal
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
+
 console.log(semanaElegida);
 semana = grillaHorarios[semanaElegida]
-
 
 function  crearGrillaSemanal(week) { 
 
@@ -56,17 +56,16 @@ function  crearGrillaSemanal(week) {
     // Busca los turnos asignados a pacientes y los inserta en la grilla Semanal
     turnosExistentes.forEach(function(turnoExistente){ //turnosExistentes declarada en seleccionTurnosModal.js
         const nodoTurno = document.createElement("div") 
-        if (turnoExistente.fecha >= fechaHoy && turnoExistente.fecha < ultimoDiaSemana) { //Agrega boton para eliminar turnos
-            nodoTurno.innerHTML += `<button>E</button>`
-            console.log(turnoExistente.fecha);
-            console.log(fechaActual);
-        } 
-        if (turnoExistente.fecha >= primerDiaSemana && turnoExistente.fecha <= ultimoDiaSemana) {
+        if (primerDiaSemana <= turnoExistente.fecha  && turnoExistente.fecha <= ultimoDiaSemana) {
             crearNodoGrillaSemanal(turnoExistente, nodoTurno)
             nodoTurno.innerHTML += turnoExistente.nombre
+            if (fechaHoy <= turnoExistente.fecha) { //Agrega boton para eliminar turnos
+                nodoTurno.innerHTML += `<button>E</button>`
+            } 
             grillaSemanal.append(nodoTurno)
+        } else {
+            
         }
-
     })
 }
 crearGrillaSemanal(semana)  // grillaHorarios declarada en turnos.js
