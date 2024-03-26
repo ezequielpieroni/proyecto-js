@@ -258,12 +258,13 @@ guardar.addEventListener("click", () => {
     //Agrega el objeto a listaTurnos y al local storage
     function guardarTurnoLS(lista, turno) {
         listaTurnos.push(turno)
-        localStorage.setItem("lista-turnos", JSON.stringify(lista))   
+        localStorage.setItem("lista-turnos", JSON.stringify(lista)) 
+        console.log(window.location.pathname); 
         if (window.location.pathname === "/pages/agendadiaria.html") {
-            location.href = "../pages/agendadiaria.html";
+            location.href = "/pages/agendadiaria.html";
             localStorage.setItem("semana", semanaElegida)   
         } else if (window.location.pathname === "/pages/agendasemanal.html") {
-            location.href = "../pages/agendasemanal.html";
+            location.href = "/pages/agendasemanal.html";
             console.log(semanaElegida);
             localStorage.setItem("semana", semanaElegida) 
         }
