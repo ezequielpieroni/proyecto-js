@@ -1,4 +1,4 @@
-
+insertarDiasSemanalYModal()
 
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
@@ -9,7 +9,7 @@
 const turnosDiaGrilla = document.querySelector(".turnosDia")
 
 if (turnosExistentes){
-    const turnosHoy = turnosExistentes.filter(turno => turno.dia == diaSemana)
+    const turnosHoy = turnosExistentes.filter(turno => turno.dia == diaSemana) 
     if (turnosHoy.length){
         turnosHoy.forEach(function(turno){
             turnosDiaGrilla.innerHTML += `<h4 class = 'horaGrilla'>${turno.hora}</h4>`
@@ -32,13 +32,13 @@ if (turnosExistentes){
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
 
-let fechaActual = document.querySelector(".asideFecha")
+fechaActual = document.querySelector(".asideFecha")
 let divFecha = document.createElement("div")
 divFecha.classList.add("fechaAgenda")
-divFecha.innerHTML = ` <p>${dt.day}<p>
+divFecha.innerHTML = ` <p>${hoy.day}<p>
                   <p>&lt;${diaSemana}&gt;<p>
                   <p>${nombreMes}<p> 
-                  <p>${dt.year}<p> `;
+                  <p>${hoy.year}<p> `;
 fechaActual.append(divFecha);
 
 
