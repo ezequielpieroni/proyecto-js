@@ -1,0 +1,96 @@
+
+/**-----------------------------------------**/
+/**------ Estilos de la agenda semanal ------**/
+/**-----------------------------------------**/
+
+#agendaSemanal {
+    display: grid;
+    grid-template-columns: 5% 95%;
+    border-top: 1px solid gray;
+    p {
+        margin: 0;
+    }
+    .columnaIzquierda {
+        display: grid;
+        grid-template-rows:18% 82%;
+        .cuadroVacio{
+            background-color: rgb(203, 203, 203);
+            grid-gap: 1px;
+            border: 1px solid transparent;
+        }
+        .horariosSemana {
+            display: grid;
+            grid-template-rows: repeat(7, 3rem);
+            grid-gap: 1px;
+            border: 1px solid transparent;
+            .horario {
+                background-color: rgb(203, 203, 203);
+               
+            }
+            
+        }
+    }
+    .columnaDerecha{
+        display: grid;
+        grid-template-rows:18% 82%;
+        .diasSemana {
+            display: grid;
+            grid-template-columns:repeat(7, 1fr);
+            grid-gap: 1px;
+            border: 1px solid transparent;
+            //grid-template-rows:repeat(1, 1fr);
+            .dias {
+                background-color: rgb(203, 203, 203);
+
+            }
+
+        }
+        .grillaTurnosSemana {
+            display: grid;
+            grid-template-columns:repeat(7, 1fr);
+            grid-template-rows: repeat(7, 3rem);
+            grid-gap: 1px;
+            border: 1px solid transparent;
+            grid-template-areas:
+            " s900lu  s900ma   s900mi  s900ju  s900vi  s900sa  s900do"
+            " s930lu  s930ma   s930mi  s930ju  s930vi  s930sa  s930do"
+            "s1000lu s1000ma  s1000mi s1000ju s1000vi s1000sa s1000do"
+            "s1030lu s1030ma  s1030mi s1030ju s1030vi s1030sa s1030do"
+            "s1100lu s1100ma  s1100mi s1100ju s1100vi s1100sa s1100do"
+            "s1130lu s1130ma  s1130mi s1130ju s1130vi s1130sa s1130do"
+            "s1200lu s1200ma  s1200mi s1200ju s1200vi s1200sa s1200do";
+
+
+            .celdaSemanal {
+                background-color: rgb(172, 201, 211);
+                border-radius: 0.1rem;
+                display: flex;
+                align-items: center;
+                .botonAgregarTurno {
+                    border: 0;
+                    background-color: transparent;
+                    padding: 10px;
+                    img {
+                        width: 25px;
+                        height: 20px;  
+                    }
+                }
+            }
+            .celdaConTurno {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-left: 5px;
+                .boton-eliminar {
+                    border: 0;
+                    background-color: transparent;
+                    padding: 5px;
+                    img {
+                        width: 25px;
+                        height: 20px;                    
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,101 @@
+/**----------------------------------------------------**/
+/**------------- Estilos de la agenda diaria ----------**/
+/**----------------------------------------------------**/
+
+#agendaDiaria {
+    // display: grid;
+    // grid-template-columns: 20% 80%;
+    display: flex;
+    //height: auto;
+    border-top: 1px solid gray;
+    padding-top: 30px;
+    .asideFecha {
+        width: 20%;
+        .fechaAgenda{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+    
+
+            .diaAside{
+                font-size: 20px;
+                margin: 0;
+                margin: 15px 0;
+            }
+            .cuadroFecha{
+                display: flex;
+                align-items: center;
+                .flechaCambioDia {
+                    width: 50px;
+                    height: auto;
+                }
+                .numeroDiaAside{
+                    font-size: 40px;
+                    margin-bottom: 5px;
+                }
+            }
+            .mesyano {                
+                display: flex;
+                width: 100%;
+                margin: 15px 0;
+                justify-content: center;
+                p{
+                    margin: 0 10px;
+                    font-size: 20px;
+                }
+            }
+            
+        }
+    }
+    .cuadroAgenda{
+        width: 80%;
+        .listaTurnosDia {
+            display: flex;
+            flex-direction: column;
+            .turnoDelDia {
+                display: grid;
+                grid-template-columns:repeat(4, 1fr);
+                background-color: rgb(196, 209, 219);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-right: 20px;
+                margin-bottom: 10px;
+                .horaGrilla {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100px;
+                    height: 100px;
+                    border-color: black;
+                    background-color: rgb(233, 242, 247);
+                    img {
+                        width: 40px;
+                        height: auto;
+                    }
+                    p{
+                        margin: 0;
+                        font-size: 20px;
+                    }
+                }
+                .paciente {
+                    display: flex;
+                    align-items: center;
+                }
+                .comentario{
+                    display: flex;
+                    align-items: center;
+                }
+                .botonEliminarPaciente {
+                    border: 0;
+                    background-color: transparent;
+                    padding: 5px;
+                    img {
+                        width: 25px;
+                        height: 20px;                    
+                    }
+                }
+            }
+        
+        }
+    }
+}

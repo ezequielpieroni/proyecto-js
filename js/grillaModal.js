@@ -82,7 +82,6 @@ function crearGrillaModal() {
 
         const nodoModal = document.createElement("div");
         crearNodoGrillaModal(horario, nodoModal)
-
             //Inserta los nodos "disponibles" desde el dia de hoy hasta el ultimo dia de la semana    
         if (horario.estado == "disponible" && horario.fecha >= fechaHoy && maxDia) {
             nodoModal.innerHTML += "<a><input type=checkbox class=seleccion value= " + i + ">" + horario.hora + "</a>";
@@ -92,6 +91,7 @@ function crearGrillaModal() {
             grillaModal.append(nodoModal)
             //Si el horario esta ocupado inserta un icono simbolizando "ocupado"
         } else if (horario.estado == "ocupado") {
+
             nodoModal.innerHTML += "<a><img src=../images/MaterialSymbolsSensorOccupiedOutlineRounded.png class=busy>" + horario.hora + "</a>";
             grillaModal.append(nodoModal) 
         // Inserta los nodos de los horarios "deshabilitados" de la semana actual
@@ -116,10 +116,9 @@ function crearNodoGrillaModal(turno, nodo){
         diaLetra = "sa" 
     }
     const clase = "m" + turno.hora.replace(":", "") + diaLetra // "m" es en referencia a modal 
-    
-    nodo.classList.add("celdaModal")
     nodo.classList.add(clase)
     nodo.classList.add(turno.fecha)
+    nodo.classList.add("celdaModal")
     nodo.style.gridArea = clase;    
 }
 
@@ -182,13 +181,13 @@ function verSeleccionados(){
             hora = horaTurno
             fecha = fechaTurno
         } else {
-            //e.preventDefault()
             alert("Horario ocupado")
+            location.reload() 
         }
      // mas de 1 horario seleccionado
     } else {
-        //e.preventDefault()
         alert("Solo puede asignar un horario a la vez")
+        location.reload() 
     }
 }
 
@@ -225,10 +224,6 @@ function insertarPacientes(pacientes){
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
 
-const listaTurnos = []
-const turnosExistentes = obtenerTurnosDesdeLocalStorage();
-listaTurnos.push(...turnosExistentes);
-
 function generarTurno(nombrePaciente, idPaciente, dia, hora, fecha) {  //funcion constructora 
     this.nombre = nombrePaciente;
     this.id = idPaciente;
@@ -248,28 +243,28 @@ guardar.addEventListener("click", () => {
 
         //Crea el objeto con los datos del turno
         const  turnoAsignado= new generarTurno(nombrePaciente, idPaciente, dia, hora, fecha)
-        guardarTurnoLS(listaTurnos, turnoAsignado)   
+        guardarTurnoLS(turnoAsignado)   
         alert("Turno asignado correctamente")
 
     } else {
         alert("Selecciona un paciente antes de guardar el turno");
     }
-
-    //Agrega el objeto a listaTurnos y al local storage
-    function guardarTurnoLS(lista, turno) {
-        listaTurnos.push(turno)
-        localStorage.setItem("lista-turnos", JSON.stringify(lista)) 
-        console.log(window.location.pathname); 
-        if (window.location.pathname === "/pages/agendadiaria.html") {
-            location.href = "/pages/agendadiaria.html";
-            localStorage.setItem("semana", semanaElegida)   
-        } else if (window.location.pathname === "/pages/agendasemanal.html") {
-            location.href = "/pages/agendasemanal.html";
-            console.log(semanaElegida);
-            localStorage.setItem("semana", semanaElegida) 
-        }
-    }
 })
+
+
+//Agrega el objeto a listaTurnos y al local storage
+
+const turnosExistentes = obtenerTurnosDesdeLocalStorage();
+let listaTurnos = []
+listaTurnos.push(...turnosExistentes);
+
+function guardarTurnoLS(turno) {
+    listaTurnos.push(turno)
+    console.log(listaTurnos);
+    localStorage.setItem("lista-turnos", JSON.stringify(listaTurnos)) 
+    localStorage.setItem("semana", semanaElegida)  
+    location.reload() 
+}
 
 // Retorna los turnos desde el local storage o un array vacío 
 function obtenerTurnosDesdeLocalStorage() {
@@ -279,5 +274,4 @@ function obtenerTurnosDesdeLocalStorage() {
 
 crearGrillaModal()
 
-console.log(semanaElegida);
 

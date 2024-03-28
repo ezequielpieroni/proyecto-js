@@ -66,14 +66,14 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="./agendasemanal.html">Semanal</a> <!--Semanal-->
                             </li>
-                            
-                                <!-- Button trigger modal -->
+                              <!-- Button trigger modal -->
+                            <button class="btn btn-primary botonDarTurno" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Dar turno</button>                              
+                            <button class="btn anteriorDia">Dia anterior</button>
+                            <button class="btn siguienteDia">Dia siguiente</button>
                          
                         
                                 <!-- Modal -->
                                 
-                                <button class="btn btn-primary botonDarTurno" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Dar turno</button>
-
                                 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -83,7 +83,11 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="contenidoTurno">
-                                                    <!--Lateral izquierdo-->
+                                                   
+                                                    <!-- <button class="btn" id="anteriorSemanaDiaria">Semana anterior</button>
+                                                    <button class="btn" id="siguienteSemanaDiaria">Semana siguiente</button> -->
+                                                     <!--Lateral izquierdo-->
+                                                    
                                                     <div>
                                                         <select class="form-select" aria-label="Default select example">
                                                             <option selected>Especialidad</option>
@@ -157,12 +161,7 @@
                     
                 </aside>
                 <div class="cuadroAgenda">
-                    <div class="categoriasAgenda">
-                        <h6>Hora</h6>
-                        <h6>Paciente</h6>
-                        <h6>Tratamiento/Comentario</h6>
-                    </div>
-                    <div class="turnosDia">
+                    <div class="listaTurnosDia">
 
                     </div>
 
