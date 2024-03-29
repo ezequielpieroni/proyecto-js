@@ -113,12 +113,12 @@ p {
   display: flex;
   align-items: center;
 }
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .botonEliminarPaciente {
+#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .boton-eliminar {
   border: 0;
   background-color: transparent;
   padding: 5px;
 }
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .botonEliminarPaciente img {
+#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .boton-eliminar img {
   width: 25px;
   height: 20px;
 }

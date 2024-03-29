@@ -15,9 +15,9 @@ function  crearGrillaSemanal(semana) {
 
     //fechas en formato YYYY-MM-DD
     //----------------------------
-    const primerDiaSemana = dt.startOf('week').toISODate()
-    const ultimoDiaSemana = dt.startOf('week').plus({ days: 6 }).toISODate()
-    let fechaHoy = dt.toISODate();
+    const primerDiaSemana = dtSemanal.startOf('week').toISODate()
+    const ultimoDiaSemana = dtSemanal.startOf('week').plus({ days: 6 }).toISODate()
+    let fechaHoy = dtSemanal.toISODate();
     //-----------------------------
 
     semana.forEach(function(horario){
@@ -72,20 +72,22 @@ function  crearGrillaSemanal(semana) {
         //     console.log("chau");
         // }
     })
+
+    // Funcionalidad a boton eliminar turno
+    const botonEliminar = document.querySelectorAll(".boton-eliminar")
+    botonEliminar.forEach(boton => {
+        boton.addEventListener("click", () => {
+            const identificador1 = boton.classList[0]
+            const identificador2 = boton.classList[1]
+            eliminarDelLocalStorage (identificador1, identificador2)
+        })
+    })
 }
 
 crearGrillaSemanal(grillaHorarios[semanaElegida])  // grillaHorarios declarada en turnos.js
 
 
-// Funcionalidad a boton eliminar turno
-const botonEliminar = document.querySelectorAll(".boton-eliminar")
-botonEliminar.forEach(boton => {
-    boton.addEventListener("click", () => {
-        const identificador1 = boton.classList[0]
-        const identificador2 = boton.classList[1]
-        eliminarDelLocalStorage (identificador1, identificador2)
-    })
-})
+
 
 function eliminarDelLocalStorage (id1, id2) {
     const listaLS = [];
@@ -135,11 +137,11 @@ const botonSiguienteSemana = document.querySelectorAll("#siguienteSemana")
 botonSiguienteSemana.forEach(boton => {
     boton.addEventListener("click", ()=>{
         semanaElegida ++
-        fechaHoy = dt.plus({day: 1})
+        fechaHoy = dtSemanal.plus({day: 1})
         while (fechaHoy.weekday !== 1) {
             fechaHoy = fechaHoy.plus({day: 1})
         }
-        dt = fechaHoy
+        dtSemanal = fechaHoy
         fechaHoy = fechaHoy.toISODate();
         reemplazarGrillas(grillaHorarios[semanaElegida])
     });
@@ -156,16 +158,16 @@ botonAnteriorSemana.forEach(boton => {
             alert ("Historial vacio")
             semanaElegida = 0
         } else if (semanaElegida > 0){
-            fechaHoy = dt.minus({day: 1})
+            fechaHoy = dtSemanal.minus({day: 1})
             while (fechaHoy.weekday !== 1) {
                 fechaHoy = fechaHoy.minus({day: 1})
             }
-            dt = fechaHoy
+            dtSemanal = fechaHoy
             fechaHoy = fechaHoy.toISODate();
             reemplazarGrillas(grillaHorarios[semanaElegida])
         } else {
-            dt = DateTime.now()
-            fechaHoy = dt.toISODate()
+            dtSemanal = DateTime.now()
+            fechaHoy = dtSemanal.toISODate()
             reemplazarGrillas(grillaHorarios[semanaElegida])
         }
     });

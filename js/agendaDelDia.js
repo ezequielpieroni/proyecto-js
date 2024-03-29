@@ -1,4 +1,20 @@
-insertarDiasSemanalYModal()  //inserta los dias de entrada en la grilla 
+//----------------------------------------------------------------------------------------
+//Si se guardo un turno en un dia posterior al actual, se guarda el "dia elegido" en el LS
+//Asi, al actualizar la pagina; la fecha se convierte para no volver al dia actual
+//----------------------------------------------------------------------------------------
+
+console.log(dtDiario.toISODate());
+let hoyFormatoTS= DateTime.now().toMillis();
+const diaElegidoActualizado = JSON.parse(localStorage.getItem("dia")) 
+
+if (diaElegidoActualizado > hoyFormatoTS || hoyFormatoTS < diaElegidoActualizado) {
+    const diaElegido = JSON.parse(localStorage.getItem("dia")) 
+    dtDiario = DateTime.fromMillis(diaElegido)  
+    localStorage.setItem("dia", 0)  //Resetea el dia a 0 en el LS (siempre que se inicie el simulador empezara en el dia actual) 
+}
+
+console.log(dtDiario.toISODate());
+insertarDiasSemanalYModal()  //inserta los dias de entrada en la grilla modal
 
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
@@ -7,64 +23,86 @@ insertarDiasSemanalYModal()  //inserta los dias de entrada en la grilla
 //---------------------------------------------------------------//
 
 const turnosDiaGrilla = document.querySelector(".listaTurnosDia")
-let diaSeleccionado = dt.setLocale('es').toLocaleString({ weekday: 'long' });
-let mesSeleccionado = dt.toLocaleString({ month: "long" });  
-let turnosDeHoy = []
+let diaSeleccionado = dtDiario.setLocale('es').toLocaleString({ weekday: 'long' });
+let mesSeleccionado = dtDiario.toLocaleString({ month: "long" });  
 
 function insertarTurnosDelDia() {
-    const turnosHoy = turnosExistentes.filter(turnoExistente => turnoExistente.fecha === dt.toISODate()) 
-    if (turnosExistentes){ // declarado en grillaModal.js        
-        console.log(turnosHoy.length);
-        if (turnosHoy.length){ 
-            console.log("hola");   
-            turnosHoy.forEach(turno => insertarTurnos(turno))  
-        } else {
-            turnosDiaGrilla.innerHTML = "<h6>Aun no hay turnos asignados para este dia</h6>" 
+    const turnosHoy = turnosExistentes.filter(turnoExistente => turnoExistente.fecha === dtDiario.toISODate()) 
+
+
+    if (turnosHoy.length){  // Si hay turnos, los ordena e inserta en el DOM
+        if (turnosHoy.length > 1) {     
+            turnosHoy.sort((a, b) => {  
+                if (a.fechaTS < b.fechaTS) { //Ordena segun la hora del turno
+                    return -1
+                }
+                if (a.fechaTS > b.fechaTS) {
+                    return 1
+                }
+                return 0
+            })  
         }
+        turnosHoy.forEach(turnoHoy => { 
+            insertarTurnos(turnoHoy)
+        })  
     } else {
-        turnosDiaGrilla.innerHTML = "<h6>Aun no hay turnos asignados para este dia</h6>"
-    }
-
-    function insertarTurnos(turnoHoy) {
-        let horaTurno = turnoHoy.hora 
-        horaSiguiente = DateTime.fromFormat(horaTurno, "H:mm").plus({ minutes: 30 });
-        horaSiguiente = horaSiguiente.toFormat('H:mm')
-        if (turnoHoy.fecha === dt.toISODate()) {  
-            const turnoDelDia = document.createElement("div")
-            turnoDelDia.classList.add("turnoDelDia")
-            turnoDelDia.innerHTML += `<div class = "horaGrilla ${turnoHoy.hora}"><p>${turnoHoy.hora}</p><img src="../images/MaterialSymbolsArrowDownward.svg"<img><p>${horaSiguiente}</p></div>`
-            turnoDelDia.innerHTML += `<h5 class = 'paciente'>${turnoHoy.nombre}</h5>`
-            turnoDelDia.innerHTML += `<h5 class = 'comentario '>Aca va un comentario o tratamiento</h5>`
-            turnoDelDia.innerHTML += `<button class = 'botonEliminarPaciente'><img src="../images/MaterialSymbolsDeleteOutline.svg"></button>`
-            turnosDeHoy.push(turnoDelDia)
-            
-        }
-    } 
-    if (turnosHoy.length > 1) {
-        ordenarTurnos(turnosDeHoy)  
-    }
-}
-
-function ordenarTurnos(turnos) {
-    turnos.sort((a, b) => {
-        console.log();
-        const horaA = parseInt(a.querySelector('.horaGrilla').classList[1].split(':')[0]);
-        const horaB = parseInt(b.querySelector('.horaGrilla').classList[1].split(':')[0]);
-        const minutoA = parseInt(a.querySelector('.horaGrilla').classList[1].split(':')[1]);
-        const minutoB = parseInt(b.querySelector('.horaGrilla').classList[1].split(':')[1]);
-    
-        // Comparar las horas
-        if (horaA !== horaB) {
-            return horaA - horaB;
+        if (dtDiario.toISODate() < hoy.toISODate() ) {
+            turnosDiaGrilla.innerHTML = "<h6>No hubo turnos asignados para este dia.</h6>"
+        } else if (dtDiario.toISODate() == hoy.toISODate() ) {
+            turnosDiaGrilla.innerHTML = "<h6>Aun no hay turnos asignados para el dia de hoy.</h6>"
         } else {
-            // Si las horas son iguales, comparar los minutos
-            return minutoA - minutoB;
+            turnosDiaGrilla.innerHTML = "<h6>Aun no hay turnos asignados para este dia.</h6>"
         }
-    });
-    turnosDeHoy.forEach(turno => {
-        turnosDiaGrilla.appendChild(turno);
-    });
-    turnos = []
+    }
+
+    function insertarTurnos(turno) {
+        let horaSiguiente = DateTime.fromFormat(turno.hora, "H:mm").plus({ minutes: 30 });
+        horaSiguiente = horaSiguiente.toFormat('H:mm') 
+        const nodoTurno = document.createElement("div")
+        nodoTurno.classList.add("turnoDelDia")
+        nodoTurno.innerHTML += `<div class = "horaGrilla ${turno.hora}">
+                                    <p>${turno.hora}</p>
+                                    <img src="../images/MaterialSymbolsArrowDownward.svg"<img>
+                                    <p>${horaSiguiente}</p>
+                                </div>
+                                <h5 class = 'paciente'>${turno.nombre}</h5>
+                                <h5 class = 'comentario '>Aca va un comentario o tratamiento</h5>
+                                <button class="${turno.hora} ${turno.fecha} boton-eliminar">
+                                    <img src="../images/MaterialSymbolsDeleteOutline.svg">
+                                </button>` 
+        turnosDiaGrilla.append(nodoTurno)
+    } 
+
+    // Funcionalidad a boton eliminar turno
+    const botonEliminar = document.querySelectorAll(".boton-eliminar")
+    botonEliminar.forEach(boton => {
+        boton.addEventListener("click", () => {
+            const identificador1 = boton.classList[0]
+            const identificador2 = boton.classList[1]
+            eliminarDelLocalStorage (identificador1, identificador2)
+        })
+    })
+
+    function eliminarDelLocalStorage (id1, id2) {
+        const listaLS = [];
+        const turnosEnLS = obtenerTurnosDesdeLocalStorage();
+        listaLS.push(...turnosEnLS); //declarada en grillaModal
+        const listaNueva = listaLS.filter(turno => {
+            console.log(id1, turno.hora, id2 ,turno.fecha, turno.nombre);
+            console.log(turno.hora !== id1 && turno.fecha !== id2);
+            return !(turno.hora === id1 && turno.fecha === id2)
+        })
+        console.log(listaNueva);
+        guardarCambio(listaNueva)  
+    }
+
+    function guardarCambio(lista) {
+        console.log(lista);
+        localStorage.setItem("lista-turnos", JSON.stringify(lista)) 
+        localStorage.setItem("semana", semanaElegida)  
+        location.reload() 
+    }
+
 }
 
 insertarTurnosDelDia()
@@ -81,21 +119,22 @@ let divFecha = document.createElement("div")
 divFecha.classList.add("fechaAgenda")
 divFecha.innerHTML = `  <p class="diaAside">${diaSeleccionado}</p>
                         <div class="cuadroFecha">
-                            <img class="flechaCambioDia"src="../images/RiArrowLeftSLine.svg">
+                            <button class="anteriorDia"><img class="flechaCambioDia"src="../images/RiArrowLeftSLine.svg"></button>
                             <p class="numeroDiaAside">
-                                ${dt.day}
+                                ${dtDiario.day}
                             </p>
-                            <img class="flechaCambioDia"src="../images/RiArrowRightSLine.svg">
+                            <button class="siguienteDia"><img class="flechaCambioDia"src="../images/RiArrowRightSLine.svg"></button>
                         </div>
                         <div class= "mesyano">
                             <p class="mesAside">${mesSeleccionado}</p> 
-                            <p class="anoAside">${dt.year}</p> 
+                            <p class="anoAside">${dtDiario.year}</p> 
                         </div>`;
 fechaActual.append(divFecha);
 
-
-
-
+const diaAside = document.querySelector(".diaAside")
+const numeroDiaAside = document.querySelector(".numeroDiaAside")
+const mesAside = document.querySelector(".mesAside")
+const anoAside = document.querySelector(".anoAside")
 
 //------------------------------------------------------------------//
 //------------------------------------------------------------------//
@@ -105,26 +144,21 @@ fechaActual.append(divFecha);
 const botonSiguienteDia = document.querySelector(".siguienteDia")
 
 botonSiguienteDia.addEventListener("click", ()=>{
-    dt = dt.plus({day: 1})
-    if (dt.weekday === 1) { // Si pasa de domingo a lunes actualiza la grilla modal
+    //borrarAside()
+    dtDiario = dtDiario.plus({day: 1})
+    if (dtDiario.weekday === 1) { // Si pasa de domingo a lunes actualiza la grilla modal
         semanaElegida++
         reemplazarGrillaModal(grillaHorarios[semanaElegida]) 
     }
-    diaSeleccionado = dt.setLocale('es').toLocaleString({ weekday: 'long' });
-    mesSeleccionado = dt.toLocaleString({ month: "long" });  
-    divFecha.innerHTML = `  <p class="diaAside">${diaSeleccionado}</p>
-                            <div class="cuadroFecha">
-                                <img class="flechaCambioDia"src="../images/RiArrowLeftSLine.svg">
-                                <p class="numeroDiaAside">
-                                    ${dt.day}
-                                </p>
-                                <img class="flechaCambioDia"src="../images/RiArrowRightSLine.svg">
-                            </div>
-                            <div class= "mesyano">
-                                <p class="mesAside">${mesSeleccionado}</p> 
-                                <p class="anoAside">${dt.year}</p> 
-                            </div>`;
-    fechaActual.append(divFecha);
+    diaSeleccionado = dtDiario.setLocale('es').toLocaleString({ weekday: 'long' });
+    mesSeleccionado = dtDiario.toLocaleString({ month: "long" });  
+    
+    //Actualiza lafecha en el DOM
+    diaAside.textContent = diaSeleccionado
+    numeroDiaAside.textContent = dtDiario.day
+    mesAside.textContent = mesSeleccionado
+    anoAside.textContent = dtDiario.year
+
     borrarTurnosDelDia() 
     insertarTurnosDelDia()
 })
@@ -135,37 +169,38 @@ botonSiguienteDia.addEventListener("click", ()=>{
 const botonAnteriorDia = document.querySelector(".anteriorDia")
 
 botonAnteriorDia.addEventListener("click", ()=>{
-    if (dt.toISODate() <= hoy.toISODate()) {
+    //borrarAside()
+    if (dtDiario.toISODate() <= grillaHorarios[0][0].fecha) {
         alert ("Historial vacio")
     } else {
-        dt = dt.minus({day: 1})
-        if (dt.weekday === 7) { //Si pasa de lunes a domingo actualiza la semana de la grilla modal
+        dtDiario = dtDiario.minus({day: 1})
+        if (dtDiario.weekday === 7) { //Si pasa de lunes a domingo actualiza la semana de la grilla modal
             semanaElegida--
-            dt = dt.minus({day: 6})
+            dtDiario = dtDiario.minus({day: 6})
             reemplazarGrillaModal(grillaHorarios[semanaElegida])
-            dt = dt.plus({day: 6})
+            dtDiario = dtDiario.plus({day: 6})
         }
-        diaSeleccionado = dt.setLocale('es').toLocaleString({ weekday: 'long' });
-        mesSeleccionado = dt.toLocaleString({ month: "long" });    
-        divFecha.innerHTML = `  <p class="diaAside">${diaSeleccionado}</p>
-                                <div class="cuadroFecha">
-                                    <img class="flechaCambioDia"src="../images/RiArrowLeftSLine.svg">
-                                    <p class="numeroDiaAside">
-                                        ${dt.day}
-                                    </p>
-                                    <img class="flechaCambioDia"src="../images/RiArrowRightSLine.svg">
-                                </div>
-                                <div class= "mesyano">
-                                    <p class="mesAside">${mesSeleccionado}</p> 
-                                    <p class="anoAside">${dt.year}</p> 
-                                </div>`;
-        fechaActual.append(divFecha);
+        diaSeleccionado = dtDiario.setLocale('es').toLocaleString({ weekday: 'long' });
+        mesSeleccionado = dtDiario.toLocaleString({ month: "long" });    
+
+        //Actualiza lafecha en el DOM
+        diaAside.textContent = diaSeleccionado
+        numeroDiaAside.textContent = dtDiario.day
+        mesAside.textContent = mesSeleccionado
+        anoAside.textContent = dtDiario.year
+
         borrarTurnosDelDia()
         insertarTurnosDelDia()
-    } 
+    }
 })
 
 
+function reemplazarGrillaModal(semana) {
+    borrarGrillaModal()
+    borrarDiasGrillaModal()  
+    insertarDiasSemanalYModal() // declarado en grillaModal.js
+    crearGrillaModal()          // declarado en grillaModal.js
+}
 
 function borrarGrillaModal() {
     while (grillaModal.firstChild) {
@@ -195,17 +230,6 @@ function borrarTurnosDelDia() {
 }
 
 
-function reemplazarGrillaModal(semana) {
-    borrarGrillaModal()
-    borrarDiasGrillaModal()  
-    insertarDiasSemanalYModal() // declarado en grillaModal.js
-    crearGrillaModal()
-}
-
-
-
-
-
 
 
 
@@ -218,11 +242,11 @@ function reemplazarGrillaModal(semana) {
 // const botonSiguienteSemanaDiaria = document.querySelectorAll("#siguienteSemanaDiaria")
 // botonSiguienteSemanaDiaria.addEventListener("click", ()=>{
 //         semanaElegida ++
-//         fechaHoy = dt.plus({day: 1})
+//         fechaHoy = dtDiario.plus({day: 1})
 //         while (fechaHoy.weekday !== 1) {
 //             fechaHoy = fechaHoy.plus({day: 1})
 //         }
-//         dt = fechaHoy
+//         dtDiario = fechaHoy
 //         fechaHoy = fechaHoy.toISODate();
 //         reemplazarSemanaGrillaModal(grillaHorarios[semanaElegida])
 // });
@@ -238,16 +262,16 @@ function reemplazarGrillaModal(semana) {
 //             alert ("Historial vacio")
 //             semanaElegida = 0
 //         } else if (semanaElegida > 0){
-//             fechaHoy = dt.minus({day: 1})
+//             fechaHoy = dtDiario.minus({day: 1})
 //             while (fechaHoy.weekday !== 1) {
 //                 fechaHoy = fechaHoy.minus({day: 1})
 //             }
-//             dt = fechaHoy
+//             dtDiario = fechaHoy
 //             fechaHoy = fechaHoy.toISODate();
 //             reemplazarGrillas(grillaHorarios[semanaElegida])
 //         } else {
-//             dt = DateTime.now()
-//             fechaHoy = dt.toISODate()
+//             dtDiario = DateTime.now()
+//             fechaHoy = dtDiario.toISODate()
 //             reemplazarGrillas(grillaHorarios[semanaElegida])
 //         }
 // }); 

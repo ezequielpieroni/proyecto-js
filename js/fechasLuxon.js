@@ -13,11 +13,10 @@ const hoy = DateTime.now()
 const diaSemana = hoy.setLocale('es').toLocaleString({ weekday: 'long' });
 const nombreMes = hoy.toLocaleString({ month: "long" });
 
-const diaSemanaActual = hoy.weekday; // Obtiene el dia de la semana actual (1 lunes, 2 martes, etc)
+const diaSemanaActual = hoy.weekday; // Obtiene el numero de dia de la semana actual (1 lunes, 2 martes, etc)
+let dtDiario = DateTime.now()
+let dtSemanal = DateTime.now()
 
-let dt = DateTime.now()
-let lunesEstaSemana = dt.plus({ weeks: 0}).startOf('week')
-let domingoEstaSemana = lunesEstaSemana.plus({ days: 6 });
 //fechas en formato YYYY-MM-DD
 // let fechaActual = dt.toISODate();
 //hora en formato HH:mm

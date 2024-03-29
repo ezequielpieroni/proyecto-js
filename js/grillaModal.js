@@ -16,8 +16,8 @@ for (let i = 0; i < grillaHorarios.length; i++) {
 }
 
 //----------------------------------------------------------------------------------------
-//Si se guardo un turno en una semana posteriora la primer semana, se guarda la "semana elegida" en el LS
-//Asi, al actualizar la pagina; la fecha se convierte para no volver a la semana 0
+//Si se guardo un turno en una semana posterior a la primer semana, se guarda la "semana elegida" en el LS
+//Asi, al actualizar la pagina; la fecha se convierte para no volver a la semana actual
 //----------------------------------------------------------------------------------------
 
 let semanaElegida = indiceSemanaActual
@@ -26,12 +26,10 @@ const semanaElegidaActualizada = JSON.parse(localStorage.getItem("semana"))
 if (semanaElegidaActualizada > 0) {
     semanaElegida = JSON.parse(localStorage.getItem("semana")) 
     for (let i = 0; i < semanaElegidaActualizada; i++) {
-        fechaHoy = dt.plus({day: 1})
-        while (fechaHoy.weekday !== 1) {
-            fechaHoy = fechaHoy.plus({day: 1})
+        dtSemanal= dtSemanal.plus({day: 1})
+        while (dtSemanal.weekday !== 1) {
+            dtSemanal = dtSemanal.plus({day: 1})
         }
-        dt = fechaHoy
-        fechaHoy = fechaHoy.toISODate();
     }    
     localStorage.setItem("semana", 0)  //Resetea la semana a 0 en el LS (siempre que se inicie el simulador empezara en la semana actual) 
 }
@@ -43,8 +41,7 @@ if (semanaElegidaActualizada > 0) {
 const diasSemanaGrilla = document.querySelectorAll(".diasGrilla")
 
 function insertarDiasSemanalYModal() {
-    lunesEstaSemana = dt.plus({ weeks: 0}).startOf('week')
-    domingoEstaSemana = lunesEstaSemana.plus({ days: 6 });
+    const lunesEstaSemana = dtSemanal.plus({ weeks: 0}).startOf('week')
     diasSemanaGrilla.forEach(nodo => {
         for (let i = 0; i < 7; i++) {
             const dia = lunesEstaSemana.plus({ days: i });
@@ -72,13 +69,19 @@ function crearGrillaModal() {
     
     
     grillaHorarios[semanaElegida].forEach(function(horario, i){  
+        
+        const primerDiaSemana= dtSemanal.plus({ weeks: 0}).startOf('week')
+        const ultimoDiaSemana = primerDiaSemana.plus({ days: 6 })
         //fechas en formato YYYY-MM-DD--//
-        const primerDiaSemana = lunesEstaSemana.toISODate() 
-        const ultimoDiaSemana = lunesEstaSemana.plus({ days: 6 }).toISODate() 
-        let fechaHoy = dt.toISODate();
+        const lunesEstaSemana = primerDiaSemana.toISODate()
+        const domingoEstaSemana = ultimoDiaSemana.toISODate()
+        const fechaHoy = hoy.toISODate();
+
         //Rangos de fecha seleccionada entre primer y ultimo dia de la semana//
-        const minDia = horario.fecha >= primerDiaSemana
-        const maxDia = horario.fecha <= ultimoDiaSemana
+        const minDia = lunesEstaSemana >= horario.fecha
+        const maxDia = horario.fecha <= domingoEstaSemana
+        console.log(maxDia);console.log(lunesEstaSemana);console.log(fechaHoy);
+        console.log(minDia);console.log(domingoEstaSemana);
 
         const nodoModal = document.createElement("div");
         crearNodoGrillaModal(horario, nodoModal)
@@ -91,7 +94,7 @@ function crearGrillaModal() {
             grillaModal.append(nodoModal)
             //Si el horario esta ocupado inserta un icono simbolizando "ocupado"
         } else if (horario.estado == "ocupado") {
-
+            console.log("hola");
             nodoModal.innerHTML += "<a><img src=../images/MaterialSymbolsSensorOccupiedOutlineRounded.png class=busy>" + horario.hora + "</a>";
             grillaModal.append(nodoModal) 
         // Inserta los nodos de los horarios "deshabilitados" de la semana actual
@@ -133,7 +136,6 @@ function actualizarGrillaHorarios(grilla) {
         let diaAsignado = grilla.findIndex(elemento => elemento.fecha === turnoLS.fecha && elemento.hora === turnoLS.hora)
         if (diaAsignado > -1) {
             grilla[diaAsignado].estado = "ocupado";
-            //console.log(grilla[diaAsignado].estado);
         }    
     }) 
 }
@@ -173,7 +175,6 @@ function verSeleccionados(){
     } else if ( boxChecked.length == 1) {
         const turnoElegido = boxChecked[0]
         const {dia:diaTurno, hora:horaTurno, fecha: fechaTurno, estado:condicion} = grillaHorarios[semanaElegida][turnoElegido]
-        console.log(grillaHorarios[semanaElegida][turnoElegido]);
 
         if (condicion == "disponible") {
             mensajeSeleccion.innerText = ("Ha seleccionado el turno del dia " + diaTurno + " a las " + horaTurno + " horas.")
@@ -182,12 +183,10 @@ function verSeleccionados(){
             fecha = fechaTurno
         } else {
             alert("Horario ocupado")
-            location.reload() 
         }
      // mas de 1 horario seleccionado
     } else {
         alert("Solo puede asignar un horario a la vez")
-        location.reload() 
     }
 }
 
@@ -224,12 +223,13 @@ function insertarPacientes(pacientes){
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
 
-function generarTurno(nombrePaciente, idPaciente, dia, hora, fecha) {  //funcion constructora 
+function generarTurno(nombrePaciente, idPaciente, dia, hora, fecha, fechaTS) {  //funcion constructora 
     this.nombre = nombrePaciente;
     this.id = idPaciente;
     this.dia = dia;
     this.hora = hora;
     this.fecha = fecha;
+    this.fechaTS = fechaTS;
 }
 
 const guardar = document.querySelector(".guardarTurno")
@@ -240,9 +240,12 @@ guardar.addEventListener("click", () => {
     const idPaciente = listaPacientes.options[listaPacientes.selectedIndex].id
 
     if (nombrePaciente) {
-
+        let horaConvertida = hora + ':00';
+        horaConvertida = horaConvertida.padStart(8, '0');
+        //horaConvertida = DateTime.fromISO(horaConvertida).toMillis()
+        const fechaFormatoTS = fecha + "T" + horaConvertida
         //Crea el objeto con los datos del turno
-        const  turnoAsignado= new generarTurno(nombrePaciente, idPaciente, dia, hora, fecha)
+        const  turnoAsignado= new generarTurno(nombrePaciente, idPaciente, dia, hora, fecha, fechaFormatoTS)
         guardarTurnoLS(turnoAsignado)   
         alert("Turno asignado correctamente")
 
@@ -260,9 +263,9 @@ listaTurnos.push(...turnosExistentes);
 
 function guardarTurnoLS(turno) {
     listaTurnos.push(turno)
-    console.log(listaTurnos);
     localStorage.setItem("lista-turnos", JSON.stringify(listaTurnos)) 
-    localStorage.setItem("semana", semanaElegida)  
+    localStorage.setItem("semana", semanaElegida) 
+    localStorage.setItem("dia", dtDiario.toMillis())  
     location.reload() 
 }
 
