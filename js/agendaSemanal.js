@@ -7,7 +7,6 @@ const turnosAlmacenados = JSON.parse(localStorage.getItem("lista-turnos"));
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
 
-//semana = grillaHorarios[semanaElegida]
 
 function  crearGrillaSemanal(semana) {
 
@@ -28,7 +27,9 @@ function  crearGrillaSemanal(semana) {
         crearNodoGrillaSemanal(horario, nodoDisponible)
             //Inserta los nodos "disponibles" desde el dia de hoy hasta el ultimo dia de la semana
         if (horario.estado == "disponible" && fechaHoy <= horario.fecha && maxDia ) {
-            nodoDisponible.innerHTML = `<button class="${horario.hora} ${horario.dia} ${horario.fecha} botonAgregarTurno" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"><img src="../images/MaterialSymbolsAddCircleRounded.svg"></button>`   //Agraga las clases de Bootstrap para abir la ventana modal
+            nodoDisponible.innerHTML = `<button class="${horario.hora} ${horario.dia} ${horario.fecha} botonAgregarTurno" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                                            <img src="../images/MaterialSymbolsAddCircleRounded.svg">
+                                        </button>`   
             grillaSemanal.append(nodoDisponible)
             //Los horarios disponibles de la semana, anteriores al dia actual, los inserta sin el boton para asignar turno
         } else if(horario.estado == "disponible" && minDia && horario.fecha < fechaHoy){
@@ -38,15 +39,14 @@ function  crearGrillaSemanal(semana) {
         } else if (horario.estado == "deshabilitado" && minDia && maxDia){
             nodoDisponible.classList.add("turnoDeshabilitado")
             grillaSemanal.append(nodoDisponible)
-        } else if (horario.estado == "ocupado") {
-            //console.log("turnos ocupados");
         }
     })
 
     //Agraga el evento click a cada boton de la grilla semanal para asignar turno
     const botonAgregar = document.querySelectorAll(".botonAgregarTurno")
     botonAgregar.forEach(boton => boton.addEventListener("click", () => agregarTurno(boton)));
-
+    const mensajeSeleccion = document.querySelector(".seleccionFecha")
+    
     function agregarTurno(botonAgregar) {
         const clases = botonAgregar.classList
         const clasesArray = Array.from(clases)
@@ -67,10 +67,8 @@ function  crearGrillaSemanal(semana) {
                 nodoTurno.innerHTML += `<button class="${turnoExistente.hora} ${turnoExistente.fecha} boton-eliminar" ><img src="../images/MaterialSymbolsDeleteOutline.svg"></button>`
             }
             grillaSemanal.append(nodoTurno)
-        }// } else if (turnoExistente.fecha < primerDiaSemana || ultimoDiaSemana < turnoExistente.fecha) {
+        }
 
-        //     console.log("chau");
-        // }
     })
 
     // Funcionalidad a boton eliminar turno
@@ -82,32 +80,49 @@ function  crearGrillaSemanal(semana) {
             eliminarDelLocalStorage (identificador1, identificador2)
         })
     })
+    
+    function eliminarDelLocalStorage (id1, id2) {
+        const listaLS = [];
+        const turnosEnLS = obtenerTurnosDesdeLocalStorage();
+        listaLS.push(...turnosEnLS); 
+        const listaNueva = listaLS.filter(turno => {
+            return !(turno.hora === id1 && turno.fecha === id2)
+        })
+        guardarCambio(listaNueva)  
+    }
+    
+    function guardarCambio(lista) {
+        localStorage.setItem("lista-turnos", JSON.stringify(lista)) 
+        localStorage.setItem("semana", semanaElegida) 
+        location.reload() 
+    }
 }
 
-crearGrillaSemanal(grillaHorarios[semanaElegida])  // grillaHorarios declarada en turnos.js
+crearGrillaSemanal(turnosBD[semanaElegida])  // turnosBD declarada en turnos.js
 
+//--------------------------------------------------
+//--------------------------------------------------
+//Inserta los dias de entrada en la grilla semanal
+//--------------------------------------------------
+//--------------------------------------------------
 
+const diasSemanaGrilla = document.querySelectorAll(".diasGrilla")
 
+function insertarDiasSemanal() {
+    const lunesEstaSemana = dtSemanal.plus({ weeks: 0}).startOf('week')
+    diasSemanaGrilla.forEach(nodo => {
+        for (let i = 0; i < 7; i++) {
+            const dia = lunesEstaSemana.plus({ days: i });
+            const mes = dia.setLocale('es').toFormat('LLL')
+            const numeroDia = dia.toFormat('d')
+            let nombreDia = dia.setLocale('es').toFormat('EEEE')
+            nombreDia = nombreDia.charAt(0).toUpperCase() + nombreDia.slice(1); //Convierte en mayuscula la primera letra
 
-function eliminarDelLocalStorage (id1, id2) {
-    const listaLS = [];
-    const turnosEnLS = obtenerTurnosDesdeLocalStorage();
-    listaLS.push(...turnosEnLS); //declarada en grillaModal
-    const listaNueva = listaLS.filter(turno => {
-        console.log(id1, turno.hora, id2 ,turno.fecha, turno.nombre);
-        console.log(turno.hora !== id1 && turno.fecha !== id2);
-        return !(turno.hora === id1 && turno.fecha === id2)
-    })
-    console.log(listaNueva);
-    guardarCambio(listaNueva)  
+            nodo.innerHTML += `<p class="dias">${nombreDia}<br>${numeroDia} ${mes}</p>`;
+        }
+    });
 }
 
-function guardarCambio(lista) {
-    console.log(lista);
-    localStorage.setItem("lista-turnos", JSON.stringify(lista)) 
-    localStorage.setItem("semana", semanaElegida)  
-    location.reload() 
-}
 //------------------------------------------------------------------//
 //------------------------------------------------------------------//
 // Crea cada nodo a insertar en la grilla semanal
@@ -126,7 +141,7 @@ function crearNodoGrillaSemanal(turno, nodo){
     nodo.style.gridArea = clase;
 }
 
-insertarDiasSemanalYModal()
+insertarDiasSemanal()
 
 //------------------------------------------------------------------//
 //------------------------------------------------------------------//
@@ -135,15 +150,20 @@ insertarDiasSemanalYModal()
 
 const botonSiguienteSemana = document.querySelectorAll("#siguienteSemana")
 botonSiguienteSemana.forEach(boton => {
-    boton.addEventListener("click", ()=>{
+    boton.addEventListener("click", (e)=>{
         semanaElegida ++
-        fechaHoy = dtSemanal.plus({day: 1})
-        while (fechaHoy.weekday !== 1) {
-            fechaHoy = fechaHoy.plus({day: 1})
+        const bd = turnosBD.length ;
+        if (semanaElegida >= bd) {
+            alert ("Fin de la base de datos")
+            semanaElegida--
+        } else {
+
+            dtSemanal = dtSemanal.plus({day: 1})
+            while (dtSemanal.weekday !== 1) {
+                dtSemanal = dtSemanal.plus({day: 1})
+            }
+            reemplazarGrillas(turnosBD[semanaElegida], dtSemanal)
         }
-        dtSemanal = fechaHoy
-        fechaHoy = fechaHoy.toISODate();
-        reemplazarGrillas(grillaHorarios[semanaElegida])
     });
 })
 
@@ -158,31 +178,27 @@ botonAnteriorSemana.forEach(boton => {
             alert ("Historial vacio")
             semanaElegida = 0
         } else if (semanaElegida > 0){
-            fechaHoy = dtSemanal.minus({day: 1})
-            while (fechaHoy.weekday !== 1) {
-                fechaHoy = fechaHoy.minus({day: 1})
+            dtSemanal = dtSemanal.minus({day: 1})
+            while (dtSemanal.weekday !== 1) {
+                dtSemanal = dtSemanal.minus({day: 1})
             }
-            dtSemanal = fechaHoy
-            fechaHoy = fechaHoy.toISODate();
-            reemplazarGrillas(grillaHorarios[semanaElegida])
+            reemplazarGrillas(turnosBD[semanaElegida])
         } else {
             dtSemanal = DateTime.now()
-            fechaHoy = dtSemanal.toISODate()
-            reemplazarGrillas(grillaHorarios[semanaElegida])
+            reemplazarGrillas(turnosBD[semanaElegida])
         }
     });
 })
 
-function borrarGrillas() {
-    while (grillaSemanal.firstChild) {
-        grillaSemanal.removeChild(grillaSemanal.firstChild)
-    }
-    while (grillaModal.firstChild) {
-        grillaModal.removeChild(grillaModal.firstChild)
-    }
+
+function reemplazarGrillas(semana) {
+    borrarDiasSemanal()
+    insertarDiasSemanal() 
+    crearGrillaSemanal(semana)
 }
 
-function borrarDiasSemanalYModal() {
+
+function borrarDiasSemanal() {
     diasSemanaGrilla.forEach(nodo => {
         while (nodo.firstChild) {
             nodo.removeChild(nodo.firstChild);
@@ -190,10 +206,3 @@ function borrarDiasSemanalYModal() {
     });
 }
 
-function reemplazarGrillas(semana) {
-    borrarGrillas()
-    borrarDiasSemanalYModal()
-    insertarDiasSemanalYModal() //declarado en grillaModal.js
-    crearGrillaSemanal(semana)
-    crearGrillaModal()
-}

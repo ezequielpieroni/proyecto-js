@@ -1,6 +1,10 @@
 /**----------------------------------------------------**/
 /**------------- Estilos de la agenda diaria ----------**/
 /**----------------------------------------------------**/
+.botonDarTurno {
+    margin: 0 20px;
+}
+
 
 #agendaDiaria {
     // display: grid;
@@ -10,12 +14,12 @@
     border-top: 1px solid gray;
     padding-top: 30px;
     .asideFecha {
-        width: 20%;
+        width: 18%;
         .fechaAgenda{
             display: flex;
             flex-direction: column;
             align-items: center;
-    
+
 
             .diaAside{
                 font-size: 20px;
@@ -25,6 +29,11 @@
             .cuadroFecha{
                 display: flex;
                 align-items: center;
+                .anteriorDia,
+                .siguienteDia {
+                    border: 0;
+                    background-color: transparent;
+                }
                 .flechaCambioDia {
                     width: 50px;
                     height: auto;
@@ -34,7 +43,7 @@
                     margin-bottom: 5px;
                 }
             }
-            .mesyano {                
+            .mesyano {
                 display: flex;
                 width: 100%;
                 margin: 15px 0;
@@ -44,58 +53,94 @@
                     font-size: 20px;
                 }
             }
-            
+
         }
     }
     .cuadroAgenda{
-        width: 80%;
+        width: 83%;
         .listaTurnosDia {
             display: flex;
             flex-direction: column;
+            margin-top: 19px;
             .turnoDelDia {
                 display: grid;
-                grid-template-columns:repeat(4, 1fr);
+                align-items: center;
+                grid-template-columns:repeat(5, 1fr);
                 background-color: rgb(196, 209, 219);
-                padding: 1rem;
-                border-radius: 10px;
-                margin-right: 20px;
-                margin-bottom: 10px;
+                padding: 5px;
+                border-radius: 5px;
+                margin-right: 10px;
+                margin-bottom: 5px;
+                height: 100%;
                 .horaGrilla {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    width: 100px;
-                    height: 100px;
+                    justify-content: center;
+                    width: 75px;
+                    height: 100%;
                     border-color: black;
                     background-color: rgb(233, 242, 247);
+                    border-radius: 5px;
                     img {
-                        width: 40px;
+                        width: 15px;
                         height: auto;
                     }
                     p{
                         margin: 0;
-                        font-size: 20px;
+                        font-size: 18px;
+                    }
+                }
+                .paciente,
+                .esp {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    align-items: left;
+                    white-space: nowrap;
+                    h5 {
+                        //margin:0;
+                        margin-bottom: 10px;
+                        font-size: 15px;
+                    }
+                    h8 {
+                        padding-top: 10px;
+                        font-size: 15px;
                     }
                 }
                 .paciente {
-                    display: flex;
-                    align-items: center;
+                    width: 220px;
                 }
-                .comentario{
+                .esp {
+                    width: 120px;
+                }
+                .comentario {
                     display: flex;
-                    align-items: center;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    align-items: left;
+                    width: 280px;
+                    h6{
+                        margin-bottom: 10px;
+                        font-size: 15px;
+                    }
+                    h8 {
+                        padding-top: 10px;
+                        font-size: 15px;
+                    }
                 }
                 .boton-eliminar {
                     border: 0;
                     background-color: transparent;
                     padding: 5px;
+                    height: 75px;
                     img {
                         width: 25px;
-                        height: 20px;                    
+                        height: 20px;
                     }
                 }
             }
-        
+
         }
     }
 }

@@ -42,7 +42,7 @@ p {
   padding-top: 30px;
 }
 #agendaDiaria .asideFecha {
-  width: 18%;
+  width: 20%;
 }
 #agendaDiaria .asideFecha .fechaAgenda {
   display: flex;
@@ -82,7 +82,7 @@ p {
   font-size: 20px;
 }
 #agendaDiaria .cuadroAgenda {
-  width: 83%;
+  width: 80%;
 }
 #agendaDiaria .cuadroAgenda .listaTurnosDia {
   display: flex;
@@ -91,78 +91,56 @@ p {
 }
 #agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia {
   display: grid;
-  align-items: center;
   grid-template-columns: repeat(5, 1fr);
   background-color: rgb(196, 209, 219);
-  padding: 5px;
-  border-radius: 5px;
-  margin-right: 10px;
-  margin-bottom: 5px;
-  height: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
 }
 #agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .horaGrilla {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 75px;
-  height: 100%;
+  width: 100px;
+  height: 100px;
   border-color: black;
   background-color: rgb(233, 242, 247);
-  border-radius: 5px;
 }
 #agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .horaGrilla img {
-  width: 15px;
+  width: 40px;
   height: auto;
 }
 #agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .horaGrilla p {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
 }
 #agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .paciente,
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .esp {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: left;
-  white-space: nowrap;
-}
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .paciente h5,
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .esp h5 {
-  margin-bottom: 10px;
-  font-size: 15px;
-}
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .paciente h8,
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .esp h8 {
-  padding-top: 10px;
-  font-size: 15px;
-}
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .paciente {
-  width: 220px;
-}
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .esp {
-  width: 120px;
-}
+#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .esp,
 #agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .comentario {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: left;
-  width: 280px;
 }
-#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .comentario h6 {
+#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .paciente h5,
+#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .esp h5,
+#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .comentario h5 {
+  margin: 0;
   margin-bottom: 10px;
-  font-size: 15px;
 }
+#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .paciente h8,
+#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .esp h8,
 #agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .comentario h8 {
   padding-top: 10px;
-  font-size: 15px;
+}
+#agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .paciente {
+  margin-right: 10rem;
 }
 #agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .boton-eliminar {
   border: 0;
   background-color: transparent;
   padding: 5px;
-  height: 75px;
 }
 #agendaDiaria .cuadroAgenda .listaTurnosDia .turnoDelDia .boton-eliminar img {
   width: 25px;
@@ -172,10 +150,7 @@ p {
 /**-----------------------------------------**/
 /**------ Estilos de la agenda semanal ------**/
 /**-----------------------------------------**/
-#siguienteSemana {
-  margin: 0 20px;
-}
-
+#siguienteSemana,
 #anteriorSemana {
   margin: 0 20px;
 }
@@ -193,7 +168,7 @@ p {
   grid-template-rows: 18% 82%;
 }
 #agendaSemanal .columnaIzquierda .cuadroVacio {
-  background-color: rgba(179, 201, 208, 0.605);
+  background-color: rgb(203, 203, 203);
   grid-gap: 1px;
   border: 1px solid transparent;
 }
@@ -204,12 +179,7 @@ p {
   border: 1px solid transparent;
 }
 #agendaSemanal .columnaIzquierda .horariosSemana .horario {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  grid-gap: 1px;
-  border: 1px solid transparent;
-  background-color: rgb(215, 228, 227);
+  background-color: rgb(203, 203, 203);
 }
 #agendaSemanal .columnaDerecha {
   display: grid;
@@ -222,10 +192,7 @@ p {
   border: 1px solid transparent;
 }
 #agendaSemanal .columnaDerecha .diasSemana .dias {
-  background-color: rgb(215, 228, 227);
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
+  background-color: rgb(203, 203, 203);
 }
 #agendaSemanal .columnaDerecha .grillaTurnosSemana {
   display: grid;
@@ -236,7 +203,7 @@ p {
   grid-template-areas: " s900lu  s900ma   s900mi  s900ju  s900vi  s900sa  s900do" " s930lu  s930ma   s930mi  s930ju  s930vi  s930sa  s930do" "s1000lu s1000ma  s1000mi s1000ju s1000vi s1000sa s1000do" "s1030lu s1030ma  s1030mi s1030ju s1030vi s1030sa s1030do" "s1100lu s1100ma  s1100mi s1100ju s1100vi s1100sa s1100do" "s1130lu s1130ma  s1130mi s1130ju s1130vi s1130sa s1130do" "s1200lu s1200ma  s1200mi s1200ju s1200vi s1200sa s1200do";
 }
 #agendaSemanal .columnaDerecha .grillaTurnosSemana .celdaSemanal {
-  background-color: rgb(179, 201, 208);
+  background-color: rgb(172, 201, 211);
   border-radius: 0.1rem;
   display: flex;
   align-items: center;
@@ -277,23 +244,14 @@ body {
 }
 .cajaLogin .formLogin {
   background-color: rgb(171, 187, 220);
-  border-radius: 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 20%;
   padding: 20px 0px;
 }
 .cajaLogin .formLogin label, .cajaLogin .formLogin a {
   padding: 10px 0;
-}
-.cajaLogin .formLogin h6 {
-  margin-left: 10px;
-}
-.cajaLogin .formLogin .botonLogin {
-  margin-top: 20px;
-  margin-bottom: 10%;
 }
 
 .logoNav {
@@ -337,7 +295,6 @@ body {
   display: flex;
   justify-content: center;
   background-color: rgb(172, 201, 211);
-  margin-bottom: 5px;
 }
 #contenidoTurno .cuadroEntrada .grillaModal {
   display: grid;
@@ -368,6 +325,4 @@ body {
 /**------Pages--------**/
 /**----Navegadores----**/
 /**----Footer---------**/
-/**---Icono Whatsapp--**/
-
-/*# sourceMappingURL=style.css.map */
+/**---Icono Whatsapp--**//*# sourceMappingURL=style.css.map */

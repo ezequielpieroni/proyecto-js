@@ -17,9 +17,6 @@ const diaSemanaActual = hoy.weekday; // Obtiene el numero de dia de la semana ac
 let dtDiario = DateTime.now()
 let dtSemanal = DateTime.now()
 
-//fechas en formato YYYY-MM-DD
-// let fechaActual = dt.toISODate();
-//hora en formato HH:mm
 const horaActual = DateTime.now().toFormat('HH:mm');
 
 

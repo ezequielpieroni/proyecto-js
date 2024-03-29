@@ -2,15 +2,14 @@
 /**------ Estilos de la ventana modal ------**/
 /**-----------------------------------------**/
 
-
 #contenidoTurno {
     display: grid;
     grid-template-columns: 30% 70%;
     height: auto;
-    /**border-top: 1px solid gray;**/
-    padding-top: 50px;
+    border-top: 1px solid gray;
+    padding-top: 10px;
     .cuadroEntrada {
-
+        margin-left: 10px;
         a{
             text-decoration: none;
             color: black;
@@ -18,8 +17,16 @@
 
         .diasGrilla {
             display: grid;
-            grid-template-columns:repeat(7, 1fr);
-            background-color: rgb(104, 174, 236);
+            grid-template-columns:repeat(7, 7fr);
+            border-radius: 0.5rem;
+            grid-gap: 1px;
+            border: 1px solid transparent;
+            .dias {
+                display: flex;
+                justify-content: center;
+                background-color: rgb(172, 201, 211);
+                margin-bottom: 5px;
+            }
         }
         .grillaModal {
             display: grid;
@@ -33,8 +40,11 @@
             "m1100lu m1100ma  m1100mi m1100ju m1100vi m1100sa m1100do"
             "m1130lu m1130ma  m1130mi m1130ju m1130vi m1130sa m1130do"
             "m1200lu m1200ma  m1200mi m1200ju m1200vi m1200sa m1200do";
+            .celdaModal{
+                margin-left: 10px;
+            }
 
-      .busy {
+            .busy {
                 height: 13px;
                 width: auto;
             }
@@ -43,8 +53,17 @@
 }
 
 .seleccionFecha{
-    background-color: rgb(46, 208, 253);
+    background-color: rgb(72, 101, 147);
+    color: rgb(250, 250, 245);
+    padding-left: 10px;
+    border-radius: 0.3rem;
 }
+
+.seleccionPaciente{
+    display: flex;
+    flex-direction: column;
+}
+
 
 
 

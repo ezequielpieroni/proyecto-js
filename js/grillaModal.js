@@ -1,76 +1,42 @@
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-// Encuentra el indice del array correspondiente a la semana actual
-//------------------------------------------------------------------
-//------------------------------------------------------------------
-let indiceSemanaActual = -1;
-const fomatoFecha = DateTime.fromISO
-for (let i = 0; i < grillaHorarios.length; i++) {
-    const semana = grillaHorarios[i];
-    const fechaInicioSemana = fomatoFecha(semana[0].fecha);
-    const fechaFinSemana = fomatoFecha(semana[semana.length - 1].fecha);
-    if (fechaInicioSemana <= hoy && hoy <= fechaFinSemana) {
-        indiceSemanaActual = i;
-        break;
-    }
-}
+//--------------------------------------------------
+//--------------------------------------------------
+//Inserta los dias de entrada en la grilla modal
+//--------------------------------------------------
+//--------------------------------------------------
 
-//----------------------------------------------------------------------------------------
-//Si se guardo un turno en una semana posterior a la primer semana, se guarda la "semana elegida" en el LS
-//Asi, al actualizar la pagina; la fecha se convierte para no volver a la semana actual
-//----------------------------------------------------------------------------------------
+const diasModalGrilla = document.querySelectorAll(".diasGrilla")
 
-let semanaElegida = indiceSemanaActual
-const semanaElegidaActualizada = JSON.parse(localStorage.getItem("semana")) 
-
-if (semanaElegidaActualizada > 0) {
-    semanaElegida = JSON.parse(localStorage.getItem("semana")) 
-    for (let i = 0; i < semanaElegidaActualizada; i++) {
-        dtSemanal= dtSemanal.plus({day: 1})
-        while (dtSemanal.weekday !== 1) {
-            dtSemanal = dtSemanal.plus({day: 1})
-        }
-    }    
-    localStorage.setItem("semana", 0)  //Resetea la semana a 0 en el LS (siempre que se inicie el simulador empezara en la semana actual) 
-}
-
-//--------------------------------------------------------------------------------------
-//Inserta los dias de la semana elegida al DOM en la ventana modal y en la grilla semanal
-//--------------------------------------------------------------------------------------
-
-const diasSemanaGrilla = document.querySelectorAll(".diasGrilla")
-
-function insertarDiasSemanalYModal() {
-    const lunesEstaSemana = dtSemanal.plus({ weeks: 0}).startOf('week')
-    diasSemanaGrilla.forEach(nodo => {
+function insertarDiasModal() {
+    const lunesEstaSemana = dtDiario.plus({ weeks: 0}).startOf('week')
+    diasModalGrilla.forEach(nodo => {
         for (let i = 0; i < 7; i++) {
             const dia = lunesEstaSemana.plus({ days: i });
             const mes = dia.setLocale('es').toFormat('LLL')
             const numeroDia = dia.toFormat('d')
             let nombreDia = dia.setLocale('es').toFormat('EEEE')
             nombreDia = nombreDia.charAt(0).toUpperCase() + nombreDia.slice(1); //Convierte en mayuscula la primera letra
-
             nodo.innerHTML += `<p class="dias">${nombreDia}<br>${numeroDia} ${mes}</p>`;
         }
     });
 }
 
-//----------------------------------------------------------//
-// La funcion "crearGrillaModal" busca los horarios disponibles, ocupados y  
-// deshabilitados en un array de objetos y los inserta en el html
-//----------------------------------------------------------//
+insertarDiasModal() 
 
+//--------------------------------------------------
+//--------------------------------------------------
+//Inserta los turnos en la grilla modal
+//--------------------------------------------------
+//--------------------------------------------------
 
 const grillaModal = document.querySelector(".grillaModal")
 
 function crearGrillaModal() {    
 
-    actualizarGrillaHorarios(grillaHorarios[semanaElegida])
+    actualizarGrillaHorarios(turnosBD[semanaElegida])  //funcion en main.js
     
-    
-    grillaHorarios[semanaElegida].forEach(function(horario, i){  
+    turnosBD[semanaElegida].forEach(function(horario, i){  
         
-        const primerDiaSemana= dtSemanal.plus({ weeks: 0}).startOf('week')
+        const primerDiaSemana= dtDiario.plus({ weeks: 0}).startOf('week')
         const ultimoDiaSemana = primerDiaSemana.plus({ days: 6 })
         //fechas en formato YYYY-MM-DD--//
         const lunesEstaSemana = primerDiaSemana.toISODate()
@@ -80,8 +46,6 @@ function crearGrillaModal() {
         //Rangos de fecha seleccionada entre primer y ultimo dia de la semana//
         const minDia = lunesEstaSemana >= horario.fecha
         const maxDia = horario.fecha <= domingoEstaSemana
-        console.log(maxDia);console.log(lunesEstaSemana);console.log(fechaHoy);
-        console.log(minDia);console.log(domingoEstaSemana);
 
         const nodoModal = document.createElement("div");
         crearNodoGrillaModal(horario, nodoModal)
@@ -94,7 +58,6 @@ function crearGrillaModal() {
             grillaModal.append(nodoModal)
             //Si el horario esta ocupado inserta un icono simbolizando "ocupado"
         } else if (horario.estado == "ocupado") {
-            console.log("hola");
             nodoModal.innerHTML += "<a><img src=../images/MaterialSymbolsSensorOccupiedOutlineRounded.png class=busy>" + horario.hora + "</a>";
             grillaModal.append(nodoModal) 
         // Inserta los nodos de los horarios "deshabilitados" de la semana actual
@@ -104,8 +67,7 @@ function crearGrillaModal() {
     })
 }
 
-
-
+crearGrillaModal()
 
 //------------------------------------------------------------------//
 //------------------------------------------------------------------//
@@ -123,158 +85,5 @@ function crearNodoGrillaModal(turno, nodo){
     nodo.classList.add(turno.fecha)
     nodo.classList.add("celdaModal")
     nodo.style.gridArea = clase;    
+    
 }
-
-//------------------------------------------------------------------//
-//------------------------------------------------------------------//
-// Actualiza el array con los turnos disponibiles
-//------------------------------------------------------------------//
-//------------------------------------------------------------------//
-
-function actualizarGrillaHorarios(grilla) {
-    turnosExistentes.forEach(turnoLS => {  
-        let diaAsignado = grilla.findIndex(elemento => elemento.fecha === turnoLS.fecha && elemento.hora === turnoLS.hora)
-        if (diaAsignado > -1) {
-            grilla[diaAsignado].estado = "ocupado";
-        }    
-    }) 
-}
-
-
-//----------------------------------------------------------//
-// La funcion "verSeleccionados" busca las casillas marcadas por
-// el usuario e imprime la seleccion realizada
-//----------------------------------------------------------//
-
-const botonSiguiente = document.querySelector(".botonSiguiente");
-const mensajeSeleccion = document.querySelector(".seleccionFecha")
-let dia = ""
-let hora = ""
-let fecha= ""
-let sobreturno = document.querySelector(".sobreturno");  
-
-botonSiguiente.addEventListener("click", verSeleccionados);
-
-function verSeleccionados(){
-    dia = ""
-    hora = ""
-    fecha = ""
-    let horaSeleccionada = document.querySelectorAll(".seleccion")
-    let boxChecked = [];
-        
-    horaSeleccionada.forEach(function(input){
-        if (input.checked == true){
-            boxChecked.push(input.value);
-        }
-    })
-
-    if (boxChecked.length == 0) {
-        
-        alert("Ningun horario seleccionado. Vuelva atras o cierre la ventana")
-    // 1 horario seleccionado
-    } else if ( boxChecked.length == 1) {
-        const turnoElegido = boxChecked[0]
-        const {dia:diaTurno, hora:horaTurno, fecha: fechaTurno, estado:condicion} = grillaHorarios[semanaElegida][turnoElegido]
-
-        if (condicion == "disponible") {
-            mensajeSeleccion.innerText = ("Ha seleccionado el turno del dia " + diaTurno + " a las " + horaTurno + " horas.")
-            dia = diaTurno
-            hora = horaTurno
-            fecha = fechaTurno
-        } else {
-            alert("Horario ocupado")
-        }
-     // mas de 1 horario seleccionado
-    } else {
-        alert("Solo puede asignar un horario a la vez")
-    }
-}
-
-//----------------------------------------------------------//
-//----------------------------------------------------------//
-// Agrega los pacientes traidos de JSON Placeholder al DOM
-//----------------------------------------------------------//
-//----------------------------------------------------------//
-
-const URL = 'https://jsonplaceholder.typicode.com/users'
-const getData = async(URL) => {
-    const response = await fetch(URL)
-    const data = await response.json()
-    insertarPacientes(data)
-}
-getData(URL)
-
-const listaPacientes = document.querySelector(".listaPacientes")
-
-function insertarPacientes(pacientes){
-    pacientes.forEach (function(paciente, i){
-        const nodoPaciente = document.createElement("option")
-        nodoPaciente.setAttribute("id", paciente.id);
-        nodoPaciente.innerHTML += paciente.name
-        listaPacientes.append(nodoPaciente)
-    })
-}
-
-
-
-//---------------------------------------------------------------//
-//---------------------------------------------------------------//
-// Guarda el turno seleccionado en un array y en el local storage
-//---------------------------------------------------------------//
-//---------------------------------------------------------------//
-
-function generarTurno(nombrePaciente, idPaciente, dia, hora, fecha, fechaTS) {  //funcion constructora 
-    this.nombre = nombrePaciente;
-    this.id = idPaciente;
-    this.dia = dia;
-    this.hora = hora;
-    this.fecha = fecha;
-    this.fechaTS = fechaTS;
-}
-
-const guardar = document.querySelector(".guardarTurno")
-
-guardar.addEventListener("click", () => {
-
-    const nombrePaciente = listaPacientes.options[listaPacientes.selectedIndex].textContent;
-    const idPaciente = listaPacientes.options[listaPacientes.selectedIndex].id
-
-    if (nombrePaciente) {
-        let horaConvertida = hora + ':00';
-        horaConvertida = horaConvertida.padStart(8, '0');
-        //horaConvertida = DateTime.fromISO(horaConvertida).toMillis()
-        const fechaFormatoTS = fecha + "T" + horaConvertida
-        //Crea el objeto con los datos del turno
-        const  turnoAsignado= new generarTurno(nombrePaciente, idPaciente, dia, hora, fecha, fechaFormatoTS)
-        guardarTurnoLS(turnoAsignado)   
-        alert("Turno asignado correctamente")
-
-    } else {
-        alert("Selecciona un paciente antes de guardar el turno");
-    }
-})
-
-
-//Agrega el objeto a listaTurnos y al local storage
-
-const turnosExistentes = obtenerTurnosDesdeLocalStorage();
-let listaTurnos = []
-listaTurnos.push(...turnosExistentes);
-
-function guardarTurnoLS(turno) {
-    listaTurnos.push(turno)
-    localStorage.setItem("lista-turnos", JSON.stringify(listaTurnos)) 
-    localStorage.setItem("semana", semanaElegida) 
-    localStorage.setItem("dia", dtDiario.toMillis())  
-    location.reload() 
-}
-
-// Retorna los turnos desde el local storage o un array vacío 
-function obtenerTurnosDesdeLocalStorage() {
-    return JSON.parse(localStorage.getItem("lista-turnos")) || [];
-}
-
-
-crearGrillaModal()
-
-

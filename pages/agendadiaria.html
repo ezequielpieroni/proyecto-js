@@ -68,8 +68,7 @@
                             </li>
                               <!-- Button trigger modal -->
                             <button class="btn btn-primary botonDarTurno" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Dar turno</button>                              
-                            <button class="btn">Dia anterior</button>
-                            <button class="btn">Dia siguiente</button>
+
                          
                         
                                 <!-- Modal -->
@@ -84,22 +83,20 @@
                                             <div class="modal-body">
                                                 <div id="contenidoTurno">
                                                    
-                                                    <!-- <button class="btn" id="anteriorSemanaDiaria">Semana anterior</button>
-                                                    <button class="btn" id="siguienteSemanaDiaria">Semana siguiente</button> -->
                                                      <!--Lateral izquierdo-->
                                                     
                                                     <div>
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Especialidad</option>
-                                                            <option value="1">Ortodoncia</option>
-                                                            <option value="2">Odontopediatria</option>
-                                                            <option value="3">General</option>
+                                                        <select class="form-select especialidad" aria-label="Default select example">
+                                                            <option value="Especialidad" selected>Especialidad</option>
+                                                            <option value="Ortodoncia">Ortodoncia</option>
+                                                            <option value="Odontopediatria">Odontopediatria</option>
+                                                            <option value="General">General</option>
                                                         </select>
-                                                        <select class="form-select" aria-label="Default select example">
+                                                        <!-- <select class="form-select" aria-label="Default select example">
                                                             <option selected>Duracion</option>
-                                                            <option value="1">30 minutos</option>
+                                                            <option value="1">30 minutos</option> 
                                                             <option value="2">1 hora</option>
-                                                        </select>
+                                                        </select> -->
                                     
                                                     </div>
                                                     
@@ -125,7 +122,7 @@
                                     </div>
                                 </div>
                                 <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog ">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Seleccionar paciente</h1>
@@ -133,14 +130,16 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p class="seleccionFecha"></p>
-                                                <label for="seleccionPaciente">Seleccione el paciente</label>
-                                                <select id="seleccionPaciente" list="pacientes" class="listaPacientes"> 
-                                                    <option value=""></option>
-                                                </select>
+                                                <div class="seleccionPaciente">
+                                                    
+                                                    <label for="seleccionPaciente">Seleccione el paciente</label>
+                                                    <select id="seleccionPaciente" list="pacientes" class="listaPacientes"> 
+                                                        <option value=""></option>
+                                                    </select>
 
-                                                <label for="tratamiento">Tratamiento/Comentario:</label>
-                                                <textarea id="tratamiento"></textarea> 
-                                           
+                                                    <label for="tratamiento">Tratamiento/Comentario:</label>
+                                                    <textarea id="tratamiento"></textarea> 
+                                                </div>        
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -172,7 +171,8 @@
 
         <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
         <script src="../js/fechasLuxon.js"></script>
-        <script src="../js/turnos.js"></script>
+        <script src="../js/turnosBD.js"></script>
+        <script src="../js/main.js"></script>
         <script src="../js/grillaModal.js"></script>
         <script src="../js/agendaDelDia.js"></script>
 

@@ -3,6 +3,13 @@
 /**------ Estilos de la agenda semanal ------**/
 /**-----------------------------------------**/
 
+#siguienteSemana {
+    margin: 0 20px;
+}
+#anteriorSemana {
+    margin: 0 20px;
+}
+
 #agendaSemanal {
     display: grid;
     grid-template-columns: 5% 95%;
@@ -14,7 +21,7 @@
         display: grid;
         grid-template-rows:18% 82%;
         .cuadroVacio{
-            background-color: rgb(203, 203, 203);
+            background-color:  rgba(179, 201, 208, 0.605);
             grid-gap: 1px;
             border: 1px solid transparent;
         }
@@ -24,7 +31,12 @@
             grid-gap: 1px;
             border: 1px solid transparent;
             .horario {
-                background-color: rgb(203, 203, 203);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                grid-gap: 1px;
+                border: 1px solid transparent;
+                background-color: rgb(215, 228, 227);
                
             }
             
@@ -40,8 +52,10 @@
             border: 1px solid transparent;
             //grid-template-rows:repeat(1, 1fr);
             .dias {
-                background-color: rgb(203, 203, 203);
-
+                background-color: rgb(215, 228, 227);
+                display: flex;
+                align-items: center;
+                padding-left: 20px;
             }
 
         }
@@ -62,7 +76,7 @@
 
 
             .celdaSemanal {
-                background-color: rgb(172, 201, 211);
+                background-color: rgb(179, 201, 208);
                 border-radius: 0.1rem;
                 display: flex;
                 align-items: center;

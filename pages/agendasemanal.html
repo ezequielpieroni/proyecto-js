@@ -60,7 +60,7 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse navSemanal" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="./agendadiaria.html">Diaria</a> <!--Diaria-->
@@ -69,17 +69,17 @@
                                 <a class="nav-link active" href="#">Semanal</a> <!--Semanal-->
                             </li>
                              <!-- Button trigger modal -->
-                            <button class="btn btn-primary botonDarTurno" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Dar turno</button>
-                            <button class="btn" id="anteriorSemana">Semana anterior</button>
-                            <button class="btn" id="siguienteSemana">Semana siguiente</button>
+                            
+                            <button class="btn btn-primary" id="anteriorSemana" type="button" >Semana anterior</button>
+                            <button class="btn btn-primary" id="siguienteSemana" type="button">Semana siguiente</button>
                                
                          
                         
                                 <!-- Modal -->
+                                <!-- Modal -->
                                 
-
                                 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog ">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Seleccionar fecha</h1>
@@ -87,34 +87,35 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="contenidoTurno">
-                                                    <!--Lateral izquierdo-->
-                                                    <button class="btn" id="anteriorSemana">semana anterior</button>
-                                                    <button class="btn" id="siguienteSemana">semana Siguiente</button>
-                                                    <div>
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Especialidad</option>
-                                                            <option value="1">Ortodoncia</option>
-                                                            <option value="2">Odontopediatria</option>
-                                                            <option value="3">General</option>
+                                                   
+                                                     <!--Lateral izquierdo-->
+                                                    
+                                                     <div>
+                                                        <select class="form-select especialidad" aria-label="Default select example">
+                                                            <option value="Especialidad" selected>Especialidad</option>
+                                                            <option value="Ortodoncia">Ortodoncia</option>
+                                                            <option value="Odontopediatria">Odontopediatria</option>
+                                                            <option value="General">General</option>
                                                         </select>
-                                                        <select class="form-select" aria-label="Default select example">
+                                                        <!-- <select class="form-select" aria-label="Default select example">
                                                             <option selected>Duracion</option>
-                                                            <option value="1">30 minutos</option>
+                                                            <option value="1">30 minutos</option> 
                                                             <option value="2">1 hora</option>
-                                                        </select>
+                                                        </select> -->
                                     
                                                     </div>
                                                     
                                                     <!--Lateral derecho-->
                                                     <div class="lateralDerecho">
-                                                            <div class="cuadroEntrada">
-                                                                <div class="diasGrilla">
+                                                        <div class="cuadroEntrada">
+                                                            <div class="diasGrilla">
                                                       
-                                                                </div>             
-                                                                <div class="grillaModal">
-
-                                                                </div>                                                                                                                                                
-                                                            </div>    
+                                                            </div>             
+                                                            <div class="grillaModal">
+                                                      
+                                                            </div>
+                                                                         
+                                                        </div>    
                                                     </div>
                                                 </div>
                                             </div>
@@ -125,8 +126,10 @@
                                          </div>
                                     </div>
                                 </div>
+
+                                
                                 <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog ">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Seleccionar paciente</h1>
@@ -134,14 +137,16 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p class="seleccionFecha"></p>
-                                                <label for="seleccionPaciente">Seleccione el paciente</label>
-                                                <select id="seleccionPaciente" list="pacientes" class="listaPacientes"> 
-                                                    <option value=""></option>
-                                                </select>
+                                                <div class="seleccionPaciente">
+                                                    
+                                                    <label for="seleccionPaciente">Seleccione el paciente</label>
+                                                    <select id="seleccionPaciente" list="pacientes" class="listaPacientes"> 
+                                                        <option value=""></option>
+                                                    </select>
 
-                                                <label for="tratamiento">Tratamiento/Comentario:</label>
-                                                <textarea id="tratamiento"></textarea> 
-                                           
+                                                    <label for="tratamiento">Tratamiento/Comentario:</label>
+                                                    <textarea id="tratamiento"></textarea> 
+                                                </div>        
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -161,10 +166,6 @@
                 <div class="columnaIzquierda">
                     <div class="cuadroVacio"></div>
                     <div class="horariosSemana">
-                        <!-- <p class="horario0">7:00</p>
-                        <p class="horario1">7:30</p>
-                        <p class="horario2">8:00</p>
-                        <p class="horario3">8:30</p> -->
                         <p class="horario">9:00</p>
                         <p class="horario">9:30</p>
                         <p class="horario">10:00</p>
@@ -172,27 +173,6 @@
                         <p class="horario">11:00</p>
                         <p class="horario">11:30</p>
                         <p class="horario">12:00</p>
-                        <!-- <p class="horario10">12:30</p>
-                        <p class="horario10">13:00</p>
-                        <p class="horario10">13:30</p>
-                        <p class="horario10">14:00</p>
-                        <p class="horario10">14:30</p>
-                        <p class="horario10">15:00</p>
-                        <p class="horario10">15:30</p>
-                        <p class="horario10">16:00</p>
-                        <p class="horario10">16:30</p>
-                        <p class="horario10">17:00</p>
-                        <p class="horario10">17:30</p>
-                        <p class="horario10">18:00</p>
-                        <p class="horario10">18:30</p>
-                        <p class="horario10">19:00</p>
-                        <p class="horario10">19:30</p>
-                        <p class="horario10">20:00</p>
-                        <p class="horario10">20:30</p>
-                        <p class="horario10">21:00</p>
-                        <p class="horario10">21:30</p>
-                        <p class="horario10">22:00</p>
-                        <p class="horario10">22:30</p> -->
                     </div>
                 </div>
                 <div class="columnaDerecha">
@@ -209,8 +189,8 @@
 
         <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
         <script src="../js/fechasLuxon.js"></script>
-        <script src="../js/turnos.js"></script>
-        <script src="../js/grillaModal.js"></script>
+        <script src="../js/turnosBD.js"></script>
+        <script src="../js/main.js"></script>
         <script src="../js/agendaSemanal.js"></script>
 
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
