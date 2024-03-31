@@ -29,7 +29,6 @@ insertarDiasModal()
 //--------------------------------------------------
 
 const grillaModal = document.querySelector(".grillaModal")
-
 function crearGrillaModal() {    
 
     actualizarGrillaHorarios(turnosBD[semanaElegida])  //funcion en main.js
@@ -44,9 +43,8 @@ function crearGrillaModal() {
         const fechaHoy = hoy.toISODate();
 
         //Rangos de fecha seleccionada entre primer y ultimo dia de la semana//
-        const minDia = lunesEstaSemana >= horario.fecha
+        const minDia = lunesEstaSemana <= horario.fecha
         const maxDia = horario.fecha <= domingoEstaSemana
-
         const nodoModal = document.createElement("div");
         crearNodoGrillaModal(horario, nodoModal)
             //Inserta los nodos "disponibles" desde el dia de hoy hasta el ultimo dia de la semana    
@@ -67,7 +65,6 @@ function crearGrillaModal() {
     })
 }
 
-crearGrillaModal()
 
 //------------------------------------------------------------------//
 //------------------------------------------------------------------//

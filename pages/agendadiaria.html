@@ -86,12 +86,12 @@
                                                      <!--Lateral izquierdo-->
                                                     
                                                     <div>
-                                                        <select class="form-select especialidad" aria-label="Default select example">
+                                                        <!-- <select class="form-select especialidad" aria-label="Default select example">
                                                             <option value="Especialidad" selected>Especialidad</option>
                                                             <option value="Ortodoncia">Ortodoncia</option>
                                                             <option value="Odontopediatria">Odontopediatria</option>
                                                             <option value="General">General</option>
-                                                        </select>
+                                                        </select> -->
                                                         <!-- <select class="form-select" aria-label="Default select example">
                                                             <option selected>Duracion</option>
                                                             <option value="1">30 minutos</option> 
@@ -132,11 +132,25 @@
                                                 <p class="seleccionFecha"></p>
                                                 <div class="seleccionPaciente">
                                                     
-                                                    <label for="seleccionPaciente">Seleccione el paciente</label>
-                                                    <select id="seleccionPaciente" list="pacientes" class="listaPacientes"> 
+                                                    <label for="seleccionPaciente">Paciente:</label>
+                                                    <select list="pacientes" class="listaPacientes"> 
                                                         <option value=""></option>
                                                     </select>
-
+                                                    <div>
+                                                        <label for="seleccionEspecialidad">Epecialidad:</label>
+                                                        <select class="seleccionEspecialidad">
+                                                            <option value="Especialidad" selected></option>
+                                                            <option value="Ortodoncia">Ortodoncia</option>
+                                                            <option value="Odontopediatria">Odontopediatria</option>
+                                                            <option value="General">General</option>
+                                                        </select>
+                                                        <!-- <select class="form-select" aria-label="Default select example">
+                                                            <option selected>Duracion</option>
+                                                            <option value="1">30 minutos</option> 
+                                                            <option value="2">1 hora</option>
+                                                        </select> -->
+                                    
+                                                    </div>
                                                     <label for="tratamiento">Tratamiento/Comentario:</label>
                                                     <textarea id="tratamiento"></textarea> 
                                                 </div>        

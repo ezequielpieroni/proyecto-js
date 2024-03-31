@@ -4,7 +4,7 @@
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 
-let indiceSemanaActual = -1;
+let indiceSemanaActual = 0;
 const fomatoFecha = DateTime.fromISO
 for (let i = 0; i < turnosBD.length; i++) {
     const semana = turnosBD[i];
@@ -36,11 +36,11 @@ if (semanaElegidaActualizada > 0) {
 }
 
 
-function actualizarGrillaHorarios(grilla) {
+function actualizarGrillaHorarios(grillaSemanal) {
     turnosExistentes.forEach(turnoLS => {  
-        let diaAsignado = grilla.findIndex(elemento => elemento.fecha === turnoLS.fecha && elemento.hora === turnoLS.hora)
+        let diaAsignado = grillaSemanal.findIndex(elemento => elemento.fecha === turnoLS.fecha && elemento.hora === turnoLS.hora)
         if (diaAsignado > -1) {
-            grilla[diaAsignado].estado = "ocupado";
+            grillaSemanal[diaAsignado].estado = "ocupado";
         }    
     }) 
 }
@@ -96,7 +96,7 @@ guardar.addEventListener("click", () => {
     const nombrePaciente = listaPacientes.options[listaPacientes.selectedIndex].textContent;
     const idPaciente = listaPacientes.options[listaPacientes.selectedIndex].id
     
-    const especialidadSelect = document.querySelector(".especialidad")
+    const especialidadSelect = document.querySelector(".seleccionEspecialidad")
     let especialidad = especialidadSelect.value
     if (especialidad === "Especialidad") {
         especialidad = "Sin Seleccion"

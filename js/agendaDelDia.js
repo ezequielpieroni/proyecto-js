@@ -96,10 +96,10 @@ function insertarTurnosDelDia() {
         localStorage.setItem("semana", semanaElegida)  
         location.reload() 
     }
-
 }
 
 insertarTurnosDelDia()
+crearGrillaModal()
 
 //----------------------------------------------------------//
 //----------------------------------------------------------//

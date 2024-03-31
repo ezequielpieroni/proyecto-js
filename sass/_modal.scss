@@ -3,10 +3,7 @@
 /**-----------------------------------------**/
 
 #contenidoTurno {
-    display: grid;
-    grid-template-columns: 30% 70%;
     height: auto;
-    border-top: 1px solid gray;
     padding-top: 10px;
     .cuadroEntrada {
         margin-left: 10px;
@@ -43,7 +40,9 @@
             .celdaModal{
                 margin-left: 10px;
             }
-
+            .celdaModal{
+                min-height: 20px;
+            }
             .busy {
                 height: 13px;
                 width: auto;
@@ -62,6 +61,17 @@
 .seleccionPaciente{
     display: flex;
     flex-direction: column;
+}
+
+.listaPacientes {
+    margin-bottom: 10px;
+}
+
+.seleccionEspecialidad{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 

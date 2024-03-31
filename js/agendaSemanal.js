@@ -6,8 +6,6 @@ const turnosAlmacenados = JSON.parse(localStorage.getItem("lista-turnos"));
 // Busca los turnos disponibles y los inserta en la grilla semanal
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
-
-
 function  crearGrillaSemanal(semana) {
 
     actualizarGrillaHorarios(semana)
@@ -99,7 +97,6 @@ function  crearGrillaSemanal(semana) {
 }
 
 crearGrillaSemanal(turnosBD[semanaElegida])  // turnosBD declarada en turnos.js
-
 //--------------------------------------------------
 //--------------------------------------------------
 //Inserta los dias de entrada en la grilla semanal
