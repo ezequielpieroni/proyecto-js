@@ -23,10 +23,9 @@ for (let i = 0; i < turnosBD.length; i++) {  //busca el indice correspondiente a
 
 let semanaElegida = indiceSemanaActual
 const semanaElegidaActualizada = JSON.parse(localStorage.getItem("semana")) 
-
 if (semanaElegidaActualizada > indiceSemanaActual) {
     semanaElegida = JSON.parse(localStorage.getItem("semana")) 
-    for (let i = 0; i < semanaElegidaActualizada; i++) {
+    for (let i = 1; i < semanaElegidaActualizada ; i++) {
         dtSemanal= dtSemanal.plus({day: 1})
         while (dtSemanal.weekday !== 1) {
             dtSemanal = dtSemanal.plus({day: 1})
@@ -34,7 +33,6 @@ if (semanaElegidaActualizada > indiceSemanaActual) {
     }    
     localStorage.setItem("semana", 0)  //Resetea la semana a 0 en el LS (siempre que se inicie el simulador empezara en la semana actual) 
 }
-
 function actualizarGrillaHorarios(grillaSemanal) {
     turnosExistentes.forEach(turnoLS => {  
         let diaAsignado = grillaSemanal.findIndex(elemento => elemento.fecha === turnoLS.fecha && elemento.hora === turnoLS.hora)

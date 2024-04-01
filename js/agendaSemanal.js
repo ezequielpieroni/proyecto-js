@@ -7,18 +7,15 @@ const turnosAlmacenados = JSON.parse(localStorage.getItem("lista-turnos"));
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
 function  crearGrillaSemanal(semana) {
-
     actualizarGrillaHorarios(semana)
-
     //fechas en formato YYYY-MM-DD
     //----------------------------
     const primerDiaSemana = dtSemanal.startOf('week').toISODate()
     const ultimoDiaSemana = dtSemanal.startOf('week').plus({ days: 6 }).toISODate()
     let fechaHoy = dtSemanal.toISODate();
     //-----------------------------
-
     semana.forEach(function(horario){
-
+        
         const minDia = primerDiaSemana <= horario.fecha  //primerDiaSemana y ultimoDiaSemana declaradas en fechasLuxon.js
         const maxDia = horario.fecha <= ultimoDiaSemana
         const nodoDisponible = document.createElement("div")
@@ -91,7 +88,7 @@ function  crearGrillaSemanal(semana) {
     
     function guardarCambio(lista) {
         localStorage.setItem("lista-turnos", JSON.stringify(lista)) 
-        localStorage.setItem("semana", semanaElegida) 
+        localStorage.setItem("semana", semanaElegida)
         location.reload() 
     }
 }
@@ -174,16 +171,13 @@ botonAnteriorSemana.forEach(boton => {
         if (semanaElegida < 0) {
             alert ("Historial vacio")
             semanaElegida = 0
-        } else if (semanaElegida > 0){
+        } else {
             dtSemanal = dtSemanal.minus({day: 1})
             while (dtSemanal.weekday !== 1) {
                 dtSemanal = dtSemanal.minus({day: 1})
             }
             reemplazarGrillas(turnosBD[semanaElegida])
-        } else {
-            dtSemanal = DateTime.now()
-            reemplazarGrillas(turnosBD[semanaElegida])
-        }
+        } 
     });
 })
 
