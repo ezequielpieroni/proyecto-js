@@ -1,16 +1,3 @@
-//----------------------------------------------------------------------------------------
-//Si se guardo un turno en un dia posterior al actual, se guarda el "dia elegido" en el LS
-//Asi, al actualizar la pagina; la fecha se convierte para no volver al dia actual
-//----------------------------------------------------------------------------------------
-
-let hoyFormatoTS= DateTime.now().toMillis();
-const diaElegidoActualizado = JSON.parse(localStorage.getItem("dia")) 
-
-if (diaElegidoActualizado > hoyFormatoTS || hoyFormatoTS < diaElegidoActualizado) {
-    const diaElegido = JSON.parse(localStorage.getItem("dia")) 
-    dtDiario = DateTime.fromMillis(diaElegido)  
-    localStorage.setItem("dia", 0)  //Resetea el dia a 0 en el LS (siempre que se inicie el simulador empezara en el dia actual) 
-}
 
 //---------------------------------------------------------------//
 //---------------------------------------------------------------//
@@ -134,6 +121,7 @@ function verSeleccionados(){
         
         alert("Ningun horario seleccionado.")
         localStorage.setItem("dia", dtDiario.toMillis())  
+        localStorage.setItem("semana", semanaElegida)    
         location.reload()
     // 1 horario seleccionado
     } else if ( boxChecked.length == 1) {
@@ -147,6 +135,7 @@ function verSeleccionados(){
      // mas de 1 horario seleccionado
     } else {
         alert("Solo puede asignar un horario a la vez")
+        localStorage.setItem("semana", semanaElegida) 
         localStorage.setItem("dia", dtDiario.toMillis())  
         location.reload()    
     }
@@ -194,7 +183,7 @@ botonSiguienteDia.addEventListener("click", (e)=>{
     
     let indiceUltimoArray = turnosBD.length - 1;
     let indiceUltimoObjeto = turnosBD[indiceUltimoArray].length - 1; // Obtiene el indice del ultimo objeto
-    const ultimoObjeto = turnosBD[indiceUltimoArray][indiceUltimoObjeto].fecha
+    const ultimoObjeto = turnosBD[indiceUltimoArray][indiceUltimoObjeto].fecha // Ultimo turno de turnosBD
     if (dtDiario.toISODate() >= ultimoObjeto) {
         alert ("Fin de la base de datos")
         dtDiario = dtDiario.minus({day: 1})
@@ -212,7 +201,7 @@ botonSiguienteDia.addEventListener("click", (e)=>{
     numeroDiaAside.textContent = dtDiario.day
     mesAside.textContent = mesSeleccionado
     anoAside.textContent = dtDiario.year
-
+    
     borrarTurnosDelDia() 
     insertarTurnosDelDia()
 })

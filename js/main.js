@@ -5,11 +5,11 @@
 //------------------------------------------------------------------
 
 let indiceSemanaActual = 0;
-const fomatoFecha = DateTime.fromISO
-for (let i = 0; i < turnosBD.length; i++) {
-    const semana = turnosBD[i];
-    const fechaInicioSemana = fomatoFecha(semana[0].fecha);
-    const fechaFinSemana = fomatoFecha(semana[semana.length - 1].fecha);
+const formatoFecha = DateTime.fromISO
+for (let i = 0; i < turnosBD.length; i++) {  //busca el indice correspondiente a la semana actual
+    const semana = turnosBD[i];  
+    const fechaInicioSemana = formatoFecha(semana[0].fecha);
+    const fechaFinSemana = formatoFecha(semana[semana.length - 1].fecha);
     if (fechaInicioSemana <= hoy && hoy <= fechaFinSemana) {
         indiceSemanaActual = i;
         break;
@@ -17,14 +17,14 @@ for (let i = 0; i < turnosBD.length; i++) {
 }
 
 //----------------------------------------------------------------------------------------
-//Si se guardo un turno en una semana posterior a la primer semana, se guarda la "semana elegida" en el LS
+//Si se guardo un turno en una semana posterior a la semana actual, se guarda la "semana elegida" en el LS
 //Asi, al actualizar la pagina; la fecha se convierte para no volver a la semana actual
 //----------------------------------------------------------------------------------------
 
 let semanaElegida = indiceSemanaActual
 const semanaElegidaActualizada = JSON.parse(localStorage.getItem("semana")) 
 
-if (semanaElegidaActualizada > 0) {
+if (semanaElegidaActualizada > indiceSemanaActual) {
     semanaElegida = JSON.parse(localStorage.getItem("semana")) 
     for (let i = 0; i < semanaElegidaActualizada; i++) {
         dtSemanal= dtSemanal.plus({day: 1})
@@ -35,7 +35,6 @@ if (semanaElegidaActualizada > 0) {
     localStorage.setItem("semana", 0)  //Resetea la semana a 0 en el LS (siempre que se inicie el simulador empezara en la semana actual) 
 }
 
-
 function actualizarGrillaHorarios(grillaSemanal) {
     turnosExistentes.forEach(turnoLS => {  
         let diaAsignado = grillaSemanal.findIndex(elemento => elemento.fecha === turnoLS.fecha && elemento.hora === turnoLS.hora)
@@ -44,6 +43,23 @@ function actualizarGrillaHorarios(grillaSemanal) {
         }    
     }) 
 }
+
+//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+//Si se guardo un turno en un dia posterior al actual, se guarda el "dia elegido" en el LS
+//Asi, al actualizar la pagina; la fecha se convierte para no volver al dia actual
+//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+
+let hoyFormatoTS= DateTime.now().toMillis();
+const diaElegidoActualizado = JSON.parse(localStorage.getItem("dia")) 
+
+if (diaElegidoActualizado > hoyFormatoTS || hoyFormatoTS < diaElegidoActualizado) {
+    const diaElegido = JSON.parse(localStorage.getItem("dia")) 
+    dtDiario = DateTime.fromMillis(diaElegido)  
+    localStorage.setItem("dia", 0)  //Resetea el dia a 0 en el LS (siempre que se inicie el simulador empezara en el dia actual) 
+}
+
 
 //----------------------------------------------------------//
 //----------------------------------------------------------//
