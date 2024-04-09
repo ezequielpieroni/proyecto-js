@@ -84,3 +84,15 @@ function crearNodoGrillaModal(turno, nodo){
     nodo.style.gridArea = clase;    
     
 }
+
+
+
+
+
+
+
+
+
+
+
+

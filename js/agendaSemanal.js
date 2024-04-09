@@ -94,6 +94,7 @@ function  crearGrillaSemanal(semana) {
 }
 
 crearGrillaSemanal(turnosBD[semanaElegida])  // turnosBD declarada en turnos.js
+
 //--------------------------------------------------
 //--------------------------------------------------
 //Inserta los dias de entrada en la grilla semanal
@@ -172,7 +173,7 @@ botonAnteriorSemana.forEach(boton => {
             alert ("Historial vacio")
             semanaElegida = 0
         } else {
-            dtSemanal = dtSemanal.minus({day: 1})
+            dtSemanal = dtSemanal.minus({day: 7})
             while (dtSemanal.weekday !== 1) {
                 dtSemanal = dtSemanal.minus({day: 1})
             }
@@ -196,4 +197,11 @@ function borrarDiasSemanal() {
         }
     });
 }
+
+
+
+
+
+
+
 
