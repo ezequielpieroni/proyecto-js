@@ -12,7 +12,7 @@ function  crearGrillaSemanal(semana) {
     //----------------------------
     const primerDiaSemana = dtSemanal.startOf('week').toISODate()
     const ultimoDiaSemana = dtSemanal.startOf('week').plus({ days: 6 }).toISODate()
-    let fechaHoy = dtSemanal.toISODate();
+    let fechaHoy = hoy.toISODate();
     //-----------------------------
     semana.forEach(function(horario){
         
@@ -184,6 +184,7 @@ botonAnteriorSemana.forEach(boton => {
 
 
 function reemplazarGrillas(semana) {
+    borrarGrillaSemanal()
     borrarDiasSemanal()
     insertarDiasSemanal() 
     crearGrillaSemanal(semana)
@@ -198,10 +199,10 @@ function borrarDiasSemanal() {
     });
 }
 
-
-
-
-
-
+function borrarGrillaSemanal() {
+while (grillaSemanal.firstChild) {
+    grillaSemanal.removeChild(grillaSemanal.firstChild)
+}
+}
 
 
