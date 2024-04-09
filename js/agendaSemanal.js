@@ -200,9 +200,9 @@ function borrarDiasSemanal() {
 }
 
 function borrarGrillaSemanal() {
-while (grillaSemanal.firstChild) {
-    grillaSemanal.removeChild(grillaSemanal.firstChild)
-}
+    while (grillaSemanal.firstChild) {
+        grillaSemanal.removeChild(grillaSemanal.firstChild)
+    }
 }
 
 
