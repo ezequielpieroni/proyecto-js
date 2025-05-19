@@ -288,13 +288,13 @@ const turnosBD = [
 {dia: "sábado",    hora: "11:30", fecha: "2025-05-31",   estado: "disponible"},
 {dia: "sábado",    hora: "12:00", fecha: "2025-05-31",   estado: "disponible"},
 
-{dia: "domingo",    hora: "9:00",  fecha: "2025-05-01",   estado: "deshabilitado"},
-{dia: "domingo",    hora: "9:30",  fecha: "2025-05-01",   estado: "deshabilitado"},
-{dia: "domingo",    hora: "10:00", fecha: "2025-05-01",   estado: "deshabilitado"},
-{dia: "domingo",    hora: "10:30", fecha: "2025-05-01",   estado: "deshabilitado"},
-{dia: "domingo",    hora: "11:00", fecha: "2025-05-01",   estado: "deshabilitado"},
-{dia: "domingo",    hora: "11:30", fecha: "2025-05-01",   estado: "deshabilitado"},
-{dia: "domingo",    hora: "12:00", fecha: "2025-05-01",   estado: "deshabilitado"}],
+{dia: "domingo",    hora: "9:00",  fecha: "2025-06-01",   estado: "deshabilitado"},
+{dia: "domingo",    hora: "9:30",  fecha: "2025-06-01",   estado: "deshabilitado"},
+{dia: "domingo",    hora: "10:00", fecha: "2025-06-01",   estado: "deshabilitado"},
+{dia: "domingo",    hora: "10:30", fecha: "2025-06-01",   estado: "deshabilitado"},
+{dia: "domingo",    hora: "11:00", fecha: "2025-06-01",   estado: "deshabilitado"},
+{dia: "domingo",    hora: "11:30", fecha: "2025-06-01",   estado: "deshabilitado"},
+{dia: "domingo",    hora: "12:00", fecha: "2025-06-01",   estado: "deshabilitado"}],
 
 
 
